@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace VaiFundos
 {
-    class Program
+    class Moeda
     {
-        static void Main(string[] args)
-        {
-           
-            
-        }
-        
+
+
+
+
+
+
     }
 }
