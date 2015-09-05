@@ -8,23 +8,33 @@ namespace VaiFundos
 {
     class Aplicacao
     {
+        private int cod_aplicacao;
         private double valor_aplicacao;
         private DateTime data_aplicacao;
-        Cliente dados_cli;
-        Fundo_de_investimento fundo;
+        public Cliente dados_cli;
+        public Fundo_de_investimento fundo;
 
-        public Aplicacao(double val_apli, DateTime dt_apli)
+        public Aplicacao(double val_apli, DateTime dt_apli, int cod_apl)
         {
+            cod_aplicacao = cod_apl;
             valor_aplicacao = val_apli;
             data_aplicacao = dt_apli;
         }
-
+        
         public Aplicacao()
         {
 
         }
 
-
+        public int getCod_aplicacao()
+        {
+            return cod_aplicacao;
+        }
+        public void setCod_aplicacao(int cod_apl)
+        {
+            cod_aplicacao = cod_apl;
+        }
+        
         public double getValor_aplicacao()
         {
             return valor_aplicacao;
