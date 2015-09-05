@@ -12,7 +12,6 @@ namespace VaiFundos
             private int codigo_fundo;
             private string nome_fundo;
             private string sigla_fundo;
-            Aplicacao aplicacao;
             Moeda moeda;
 
 
