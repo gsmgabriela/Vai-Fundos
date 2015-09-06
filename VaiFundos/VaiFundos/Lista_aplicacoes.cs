@@ -22,9 +22,32 @@ namespace VaiFundos
 
         }
 
+        //buscar pelo codigo da aplicação
+
+        public void Buscar_aplicacao(int cod_apl)
+        {
+
+            foreach (Aplicacao aplicacao in lista_aplicacoes)
+            {
+
+                if (aplicacao.getCod_aplicacao() == cod_apl)
+                {
+                    Console.WriteLine("Codigo do fundo: {0}, Nome: {1}, Sigla: {2}, Data:{3}, Valor:{4}" + aplicacao.fundo.getCodigo_fundo(), aplicacao.fundo.getNome_fundo(), aplicacao.fundo.getSigla_fundo(), aplicacao.getData_aplicacao(), aplicacao.getValor_aplicacao());
+
+                }
+              
+            }
+
+        }
+
+                
+        public int containvestimentos()
+        {
+            return lista_aplicacoes.Count + 1;
+
+        }
 
 
-       
     }
 }
 
