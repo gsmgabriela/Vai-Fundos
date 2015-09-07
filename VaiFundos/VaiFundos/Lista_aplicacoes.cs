@@ -35,23 +35,92 @@ namespace VaiFundos
                     Console.WriteLine("Codigo do fundo: {0}, Nome: {1}, Sigla: {2}, Data:{3}, Valor:{4}" + aplicacao.fundo.getCodigo_fundo(), aplicacao.fundo.getNome_fundo(), aplicacao.fundo.getSigla_fundo(), aplicacao.getData_aplicacao(), aplicacao.getValor_aplicacao());
 
                 }
-              
+
             }
 
         }
 
-                
+
         public int containvestimentos()
         {
             return lista_aplicacoes.Count + 1;
 
         }
+        //
+
+        public void RetornoAplicacaoDados(int cod_apl)
+        {
+            DateTime Data_Hoje;
+            Data_Hoje = DateTime.Now;
+            int Total_Dias;
+            int Qtd_Ano_Dias = 365;
+            int Ano = 365;
+            double Porcentagem = 0,05;            
+            double Valor_Corrigido_porcentagem;
+            double Valor_Aplicacao;
+            double Valor_Aplicacao_anterior;
+            int QTD_ANO = 1;
+            double PorcentagemAtualizada = 0,05;
+
+           
+
+            foreach (Aplicacao aplicacao in lista_aplicacoes)
+            {
+                if (aplicacao.getCod_aplicacao() == cod_apl)
+                {
+                    TimeSpan Data_Dias = Convert.ToDateTime(Data_Hoje) - Convert.ToDateTime(aplicacao.getData_aplicacao());
+
+                    Total_Dias = Data_Dias.Days;
 
 
+                    if (Total_Dias == Qtd_Ano_Dias)
+                    {
+                        Valor_Aplicacao = aplicacao.getValor_aplicacao();
+                        Valor_Aplicacao_anterior = aplicacao.getValor_aplicacao();
+                        Valor_Corrigido_porcentagem = Valor_Aplicacao * Porcentagem;
+                        Valor_Aplicacao = Valor_Aplicacao + Valor_Corrigido_porcentagem;
+
+                        aplicacao.setValor_aplicacao(Valor_Aplicacao);
+                        Console.WriteLine("Valor Anterior da Aplicação: R${0}  Aplicação Atualizada com a Remuneração de 5% 1 ano  Atualizou para: R$" + Valor_Aplicacao_anterior, Valor_Aplicacao);
+                        
+                    } else
+                    {
+                        if (Total_Dias < Qtd_Ano_Dias)
+                        {
+                            Console.WriteLine("Sua aplicação não tem um ano");
+                        }
+
+                        else
+                        {
+                            while (Total_Dias > Qtd_Ano_Dias)
+                            {
+                                QTD_ANO++;
+                                Qtd_Ano_Dias += Ano; 
+                                PorcentagemAtualizada += Porcentagem;
+                             
+                            }
+
+                            Valor_Aplicacao = aplicacao.getValor_aplicacao();
+                            Valor_Aplicacao_anterior = aplicacao.getValor_aplicacao();
+                            Valor_Corrigido_porcentagem = Valor_Aplicacao * PorcentagemAtualizada;
+                            Valor_Aplicacao = Valor_Aplicacao + Valor_Corrigido_porcentagem;
+
+                            aplicacao.setValor_aplicacao(Valor_Aplicacao);
+                            Console.WriteLine("Valor Anterior da Aplicação: R${0} , Aplicação Atualizada de {1} Anos Valor Atual depois da % de {2} Valor Atual R${3}  " + Valor_Aplicacao_anterior + QTD_ANO + Valor_Corrigido_porcentagem + Valor_Aplicacao);
+                            
+
+
+                        }
+                    }
+                }
+            }
+        }
     }
+
+
 }
 
-
+ 
 
 
 

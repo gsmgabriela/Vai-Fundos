@@ -13,9 +13,7 @@ namespace VaiFundos
             private string nome_fundo;
             private string sigla_fundo;
             Moeda moeda;
-
-
-           
+                   
 
             public Fundo_de_investimento(int cod_fun, string nom_fun, string sig_fun)
             {
@@ -54,9 +52,8 @@ namespace VaiFundos
                 sigla_fundo = sig_fun;
             }
 
-
-
-
+       
 
         }
+
 }

@@ -48,6 +48,7 @@
     <Compile Include="Fundo_de_investimento.cs" />
     <Compile Include="Lista_aplicacoes.cs" />
     <Compile Include="Lista_clientes.cs" />
+    <Compile Include="Lista_fundos.cs" />
     <Compile Include="Moeda.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
