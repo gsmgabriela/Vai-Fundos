@@ -14,6 +14,7 @@ namespace VaiFundos
             Lista_fundos chamar_fundo = new Lista_fundos();
             Lista_clientes chamar_cli = new Lista_clientes();
             Lista_aplicacoes chamar_investimentos = new Lista_aplicacoes();
+            Classe_Arquivos Arquvo_tste = new Classe_Arquivos();
 
             int opcao1 = -1, opcao0 = -1;
 
@@ -28,6 +29,14 @@ namespace VaiFundos
 
                 switch (opcao0)
                 {
+                    
+                    case 10:
+                        // Teste para add clientes 
+                        chamar_cli.ClientesCadastrados();
+                        //chamar_cli.Cadatrar_cliente(novo_cliente);
+
+                        break;
+
                     case 1:
 
 
@@ -109,6 +118,10 @@ namespace VaiFundos
 
                                 case 4:
 
+
+                                                
+                                    
+
                                     int codigo_cli;
                                     int cpf;
                                     string nome;
@@ -132,6 +145,7 @@ namespace VaiFundos
 
                                     chamar_cli.Cadatrar_cliente(novo);
 
+                                    
 
                                     break;
 

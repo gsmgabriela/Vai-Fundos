@@ -9,13 +9,20 @@ namespace VaiFundos
     class Moeda
     {
 
-       
+      //  private int Cont_notas;
+      //  private double Valor_Resgate;
+
+
+      //  public void Resgate_Real()
+      //  {
 
 
 
 
+    //    }
 
 
+        
 
     }
 }
