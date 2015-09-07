@@ -54,7 +54,7 @@ namespace VaiFundos
 
         public int contaClientes()
         {
-            return Lista_de_clientes.Count + 1;
+            return Lista_de_clientes.Count;
 
         }
         

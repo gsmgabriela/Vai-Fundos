@@ -12,14 +12,18 @@ namespace VaiFundos
             private int codigo_fundo;
             private string nome_fundo;
             private string sigla_fundo;
-            Moeda moeda;
+            private int opcao_moeda;
+
+
+            
                    
 
-            public Fundo_de_investimento(int cod_fun, string nom_fun, string sig_fun)
+            public Fundo_de_investimento(int cod_fun, string nom_fun, string sig_fun, int op_m)
             {
                 codigo_fundo = cod_fun;
                 nome_fundo = nom_fun;
                 sigla_fundo = sig_fun;
+                opcao_moeda = op_m;
 
             }
 
@@ -51,9 +55,20 @@ namespace VaiFundos
             {
                 sigla_fundo = sig_fun;
             }
+            public int getOpcaomoeda()
+            {
+            return opcao_moeda;
+            }
+            public void setOpcaomoeda(int op_m)
+            {
+           opcao_moeda = op_m;
+            }
 
-       
 
-        }
+
+
+
+
+    }
 
 }

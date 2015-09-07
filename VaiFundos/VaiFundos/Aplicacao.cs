@@ -14,11 +14,15 @@ namespace VaiFundos
         public Cliente dados_cli;
         public Fundo_de_investimento fundo;
 
+
+
+
         public Aplicacao(double val_apli, DateTime dt_apli, int cod_apl)
         {
             cod_aplicacao = cod_apl;
             valor_aplicacao = val_apli;
             data_aplicacao = dt_apli;
+            
         }
         
         public Aplicacao()

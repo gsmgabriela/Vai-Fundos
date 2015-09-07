@@ -41,6 +41,29 @@ namespace VaiFundos
         }
 
 
+
+        public Aplicacao Retorna_aplicacao(int cpf, int cod_fundo)
+        {
+
+            foreach (Aplicacao aplicacao in lista_aplicacoes)
+            {
+                if (aplicacao.dados_cli.getCpf_cliente() == cpf)
+                {
+                    if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
+                    {
+                        return aplicacao;
+                    }
+                }
+            }
+            return null;
+
+        }
+
+
+
+
+
+
         public int containvestimentos()
         {
             return lista_aplicacoes.Count + 1;
@@ -55,12 +78,12 @@ namespace VaiFundos
             int Total_Dias;
             int Qtd_Ano_Dias = 365;
             int Ano = 365;
-            double Porcentagem = 0,05;            
+            double Porcentagem = 5;            
             double Valor_Corrigido_porcentagem;
             double Valor_Aplicacao;
             double Valor_Aplicacao_anterior;
             int QTD_ANO = 1;
-            double PorcentagemAtualizada = 0,05;
+            double PorcentagemAtualizada = 5;
 
            
 
