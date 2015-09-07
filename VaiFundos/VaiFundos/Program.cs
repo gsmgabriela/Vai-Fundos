@@ -215,7 +215,7 @@ namespace VaiFundos
 
 
 
-                                    if (chamar_fundo.Validar_fundo (b_cpf, cod_fundo) != null)
+                                    if (chamar_fundo.Validar_fundo(cod_fundo) != null)
                                     {
                                         double valor_apl;
                                         DateTime dt_apl;
@@ -226,19 +226,17 @@ namespace VaiFundos
 
                                         chamar_investimentos.containvestimentos();
 
-                                        Aplicacao nova_aplicacao = new Aplicacao(valor_apl,dt_apl, chamar_investimentos.containvestimentos());
+                                        Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
 
                                         //atribuindo os dados do cliente a aplicação
-                                        nova_aplicacao.dados_cli.setCpf_cliente(b_cpf);
-                                        nova_aplicacao.dados_cli.setCodigo_cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente());
-                                        nova_aplicacao.dados_cli.setNome_cliente(chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+                                        nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+                                      
+                                         
+
 
                                         //atribuindo os dados do fundo a aplicação
-                                        nova_aplicacao.fundo.setCodigo_fundo(cod_fundo);
-                                        nova_aplicacao.fundo.setNome_fundo(chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo());
-                                        nova_aplicacao.fundo.setSigla_fundo(chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo());
-                                        nova_aplicacao.fundo.setOpcaomoeda(chamar_fundo.Busca_fundo(cod_fundo).getOpcaomoeda());
-
+                                        nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo,chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(),chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
+                                    
                                         chamar_investimentos.Aplicar(nova_aplicacao);
 
                                     }
@@ -248,11 +246,28 @@ namespace VaiFundos
                        
                                     }
 
-
-
-                                        //terminar
+                                                                     
                                         break;
+                                    // Consultar aplicações pelo codigo
+                                case 2:
 
+                                    Console.WriteLine("Digite o código do fundo para ver a sua aplicações");
+                                    int cod_fundo_consulta = int.Parse(Console.ReadLine());
+
+                                    if (chamar_fundo.Validar_fundo(cod_fundo_consulta) != null)
+                                    {
+                                        Console.WriteLine("Digite o seu CPF");
+                                        b_cpf = int.Parse(Console.ReadLine());
+
+
+                                        chamar_investimentos.Buscar_aplicacao_Cliente(b_cpf);
+                                    }
+
+
+
+
+                                    break;
+    
 
 
                                     }

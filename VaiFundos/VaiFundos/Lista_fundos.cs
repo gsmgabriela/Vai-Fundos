@@ -79,12 +79,12 @@ namespace VaiFundos
         }
 
 
-        public Fundo_de_investimento Validar_fundo(int cod_fundo, int opc_moeda)
+        public Fundo_de_investimento Validar_fundo(int cod_fundo)
         {
 
             foreach (Fundo_de_investimento fundo in Lista_de_fundos)
             {
-                if (fundo.getOpcaomoeda() == opc_moeda && cod_fundo == fundo.getCodigo_fundo())
+                if (cod_fundo == fundo.getCodigo_fundo())
                 {
                     return fundo;
                 }

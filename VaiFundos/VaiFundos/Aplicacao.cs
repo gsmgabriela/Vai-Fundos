@@ -12,6 +12,7 @@ namespace VaiFundos
         private double valor_aplicacao;
         private DateTime data_aplicacao;
         public Cliente dados_cli;
+         
         public Fundo_de_investimento fundo;
 
 
