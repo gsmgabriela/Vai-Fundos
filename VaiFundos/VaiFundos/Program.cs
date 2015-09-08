@@ -57,6 +57,7 @@ namespace VaiFundos
                             Console.WriteLine("Para cadastrar novo cliente,.....................digite 4");
                             Console.WriteLine("Para buscar cliente,.............................digite 5");
                             Console.WriteLine("Para excluir cliente,............................digite 6");
+                            Console.WriteLine("Para excluir fundo,..............................digite 7");
                             Console.WriteLine("Para sair,.......................................digite 0");
 
                             opcao1 = Convert.ToInt32(Console.ReadLine());
@@ -126,9 +127,6 @@ namespace VaiFundos
 
 
                                 case 4:
-
-
-                                                
                                     
 
                                     int codigo_cli;
@@ -223,7 +221,29 @@ namespace VaiFundos
 
                                     break;
 
+                                case 7:
 
+                                    Console.WriteLine("Digite o código do fundo:");
+                                    int cod = int.Parse(Console.ReadLine());
+
+
+                                    if(chamar_fundo.Validar_fundo(cod) != null)
+                                    {
+
+                                        //fazer metodo que verifica se há cliente no fundo.
+
+
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Código inválido!");
+                                    }
+
+
+
+
+                                    break;
 
 
                                 case 0:
