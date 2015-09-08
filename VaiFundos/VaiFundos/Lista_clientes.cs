@@ -11,6 +11,8 @@ namespace VaiFundos
     class Lista_clientes
     {
         List<Cliente> Lista_de_clientes = new List<Cliente>();
+
+
         
         public void ClientesCadastrados()
         {
@@ -54,22 +56,18 @@ namespace VaiFundos
                 // FileStream MeuArquivo2 = new FileStream("multiplos.txt", FileMode.Create, FileAccess.Write);
                 // StreamWriter gravador = new StreamWriter(MeuArquivo2, Encoding.Unicode);
 
-        public void  Cadatrar_cliente(Cliente novo_cliente)
-        {
-            
 
-            
-            Lista_de_clientes.Add(novo_cliente);
-            
-            Console.WriteLine("Novo Cliente incluído com sucesso!");
-            
 
+        public void  Cadatrar_cliente(Cliente novo_cliente) {
 
             // criando a lista aqui, toda vez que for adicionar um fundo, se cria uma nova lista
 
-            /*
+            if (Busca_cliente(novo_cliente.getCpf_cliente()) != null)
+            {
+                Console.WriteLine("CPF ja cadastrado, verifique se o mesmo está correto!");
 
-            if (Busca_cliente(novo_cliente.getCodigo_cliente()) == null)
+            }
+            else
             {
 
                 Lista_de_clientes.Add(novo_cliente);
@@ -77,17 +75,52 @@ namespace VaiFundos
                 Console.WriteLine("Novo Cliente incluído com sucesso!");
 
             }
-            else
-            {
-
-                Console.WriteLine("Erro ao salvar, verifique se codigo está correto!");
-            }
             
-    */
-
+            
         }
 
 
+        public void Atualiza_arq_clientes()
+        {
+            //Acho que o caminho varia de acordo com o pc!
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\R.ROMUALDOL\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            {
+                try
+                {
+                    foreach (Cliente cliente in Lista_de_clientes)
+                    {
+                        escritor.WriteLine(cliente.getCodigo_cliente() + ";" + cliente.getCpf_cliente() + ";" + cliente.getNome_cliente());
+                    }
+
+
+                    escritor.Close();
+
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao Atualizar arquivo!");
+                }
+
+
+            }
+        }
+                
+        
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+        
         public Cliente Busca_cliente(int cpf)
         {
 
@@ -108,6 +141,9 @@ namespace VaiFundos
         }
 
 
+
+
+        //retorna o número de clientes na lista.
         public int contaClientes()
         {
             return Lista_de_clientes.Count;
