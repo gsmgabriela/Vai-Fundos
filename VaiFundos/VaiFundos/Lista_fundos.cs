@@ -146,7 +146,7 @@ namespace VaiFundos
 
 
         //Inprime fundos na tela
-        public void Imprimir_fundo(int opc_moeda)
+        public bool Imprimir_fundo(int opc_moeda)
         {
 
             foreach (Fundo_de_investimento fundo in Lista_de_fundos)
@@ -155,8 +155,11 @@ namespace VaiFundos
                 {
 
                     Console.WriteLine("Codigo: {0}, Nome: {1}, Sigla: {2}" + fundo.getCodigo_fundo()+ fundo.getNome_fundo()+ fundo.getSigla_fundo());
+                    return true;
                 }
+                
             }
+            return false;
             
         }
 
@@ -183,6 +186,7 @@ namespace VaiFundos
 
             Lista_de_fundos.Remove(Busca_fundo(cod));
             Atualiza_arq_fundos();
+            Console.WriteLine("Fundo excluído com sucesso!");
         }
 
 

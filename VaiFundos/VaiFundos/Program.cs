@@ -14,6 +14,8 @@ namespace VaiFundos
             Lista_fundos chamar_fundo = new Lista_fundos();
             Lista_clientes chamar_cli = new Lista_clientes();
             Lista_aplicacoes chamar_investimentos = new Lista_aplicacoes();
+
+            //pra que isso gente !!
             Classe_Arquivos Arquvo_tste = new Classe_Arquivos();
 
             chamar_fundo.FundosCadastrados();
@@ -147,12 +149,19 @@ namespace VaiFundos
                                         codigo_cli = chamar_cli.contaClientes();
                                     }
 
-                                    Console.WriteLine("Código do cliente: " + codigo_cli);
+                                    
                                     Cliente novo = new Cliente(codigo_cli, cpf, nome);
 
-                                    chamar_cli.Cadatrar_cliente(novo);
-
+                                    if (chamar_cli.Cadatrar_cliente(novo))
+                                    {
+                                        Console.WriteLine("Código do cliente: " + codigo_cli);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Menu:");
+                                    }
                                     
+
 
                                     break;
 
@@ -229,11 +238,19 @@ namespace VaiFundos
 
                                     if(chamar_fundo.Validar_fundo(cod) != null)
                                     {
-
                                         //fazer metodo que verifica se há cliente no fundo.
+                                        if (chamar_investimentos.fundo_tem_aplicacao(cod))
+                                        {
+
+                                            Console.WriteLine("Fundo não pode ser excluído, o mesmo possui aplicações");
+                                        }
+                                        else
+                                        {
+                                            chamar_fundo.excluir_fundo(cod);
 
 
-
+                                        }
+                                           
                                     }
                                     else
                                     {
@@ -289,56 +306,71 @@ namespace VaiFundos
                                     else
                                     {
                                         Console.WriteLine("Bem vindo(a): " + chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
-                                    }
-
-                                    int opcaomoeda;
-                                    Console.WriteLine("Escolha a moeda para a aplicação: ");
-                                    Console.WriteLine("Para Real,................digite 1");
-                                    Console.WriteLine("Para dolar,...............digite 2");
-                                    opcaomoeda = int.Parse(Console.ReadLine());
-
-                                    Console.WriteLine("Lista de fundos disponíveis para a moeda escolhida: ");
-                                    chamar_fundo.Imprimir_fundo(opcaomoeda);
-                                    
-
-                                    int cod_fundo;
-                                    Console.WriteLine("Digite o codigo do fundo que deseja aplicar:");
-                                    cod_fundo = int.Parse(Console.ReadLine());
 
 
-
-                                    if (chamar_fundo.Validar_fundo(cod_fundo) != null)
-                                    {
-                                        double valor_apl;
-                                        DateTime dt_apl;
-                                        Console.WriteLine("Digite o valor que deseja aplicar: ");
-                                        valor_apl = double.Parse(Console.ReadLine());
-                                        dt_apl = DateTime.Today;
-                                        Console.WriteLine("Data da aplicação:" + dt_apl);
-
-                                        chamar_investimentos.containvestimentos();
-
-                                        Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
-
-                                        //atribuindo os dados do cliente a aplicação
-                                        nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
-                                      
-                                         
+                                        int opcaomoeda;
+                                        Console.WriteLine("Escolha a moeda para a aplicação: ");
+                                        Console.WriteLine("Para Real,................digite 1");
+                                        Console.WriteLine("Para dolar,...............digite 2");
+                                        opcaomoeda = int.Parse(Console.ReadLine());
+                                        //se digitar moeda inesistente:
+                                        if (opcaomoeda == 1 || opcaomoeda == 2)
+                                        {
+                                            Console.WriteLine("Lista de fundos disponíveis para a moeda escolhida: ");
+                                            if (chamar_fundo.Imprimir_fundo(opcaomoeda) == false)
+                                            {
+                                                Console.WriteLine("não há fundos cadastrados program!");
+                                            }
+                                            else
+                                            {
 
 
-                                        //atribuindo os dados do fundo a aplicação
-                                        nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo,chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(),chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
-                                    
-                                        chamar_investimentos.Aplicar(nova_aplicacao);
+                                                int cod_fundo;
+                                                Console.WriteLine("Digite o codigo do fundo que deseja aplicar:");
+                                                cod_fundo = int.Parse(Console.ReadLine());
+                                                
 
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Codigo inválido !");
-                       
-                                    }
 
-                                                                     
+                                                if (chamar_fundo.Validar_fundo(cod_fundo) != null)
+                                                {
+                                                    Console.WriteLine("...." + chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo() + "...." + chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo());
+                                                    double valor_apl;
+                                                    DateTime dt_apl;
+                                                    Console.WriteLine("Digite o valor que deseja aplicar: ");
+                                                    valor_apl = double.Parse(Console.ReadLine());
+                                                    dt_apl = DateTime.Today;
+                                                    Console.WriteLine("Data da aplicação:" + dt_apl);
+
+                                                    chamar_investimentos.containvestimentos();
+
+                                                    Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
+
+                                                    //atribuindo os dados do cliente a aplicação
+                                                    nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+
+
+
+
+                                                    //atribuindo os dados do fundo a aplicação
+                                                    nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo, chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(), chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
+
+                                                    chamar_investimentos.Aplicar(nova_aplicacao);
+
+
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Código incorreto!");
+                                                }
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            Console.WriteLine("Moeda inválida!");
+                                        }
+
+                                    }                      
                                         break;
                                     // Consultar aplicações pelo codigo
                                 case 2:
@@ -354,10 +386,11 @@ namespace VaiFundos
 
                                         chamar_investimentos.Buscar_aplicacao_Cliente(b_cpf, cod_fundo_consulta);
                                     }
-
-
-
-
+                                    else
+                                    {
+                                        Console.WriteLine("Código não encontrado!");
+                                    }
+                                    
                                     break;
     
 

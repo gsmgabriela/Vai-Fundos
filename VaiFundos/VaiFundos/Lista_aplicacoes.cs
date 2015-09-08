@@ -183,6 +183,31 @@ namespace VaiFundos
                 }
             }
         }
+
+
+        //verifica se fundo tem alguma aplicação
+        public bool fundo_tem_aplicacao(int cod_fun)
+        {
+            foreach (Aplicacao apli in lista_aplicacoes)
+            {
+                if (apli.fundo.getCodigo_fundo() == cod_fun)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
