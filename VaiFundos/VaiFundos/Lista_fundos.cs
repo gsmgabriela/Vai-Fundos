@@ -14,7 +14,6 @@ namespace VaiFundos
         List<Fundo_de_investimento> Lista_de_fundos = new List<Fundo_de_investimento>();
 
         // Metodo carrega os dados dos fundos cadastrados pelo arquivo
-
         public void FundosCadastrados()
         {
             using (StreamReader reader = new StreamReader(@"C:\Users\BRUNO\Source\Repos\Vai-Fundos\VaiFundos\VaiFundos\Fundos_Cadastrados.txt"))
@@ -26,9 +25,8 @@ namespace VaiFundos
                     String[] Separador;
                     linha = reader.ReadLine();
 
-                    int codigoFundo = 0, OpMoeda = 0;
-                    String NomeFundo = "";
-                    String SiglaFundo = "";
+                    int codigoFundo = 0, OpMoeda = 0; String NomeFundo = "", SiglaFundo = "";
+
                     // Fundos cadastrados no Arquivo                   
                     while (linha != null)
                     {
@@ -40,7 +38,7 @@ namespace VaiFundos
                         SiglaFundo = (Separador[2]);
                         OpMoeda = int.Parse(Separador[3]);
 
-                        Console.WriteLine(" " + codigoFundo + " " + NomeFundo + " " + SiglaFundo +  " " + OpMoeda);
+                        
                         linha = reader.ReadLine();
 
                         Fundo_de_investimento NovoFundo = new Fundo_de_investimento(codigoFundo,NomeFundo,SiglaFundo,OpMoeda);
@@ -57,38 +55,69 @@ namespace VaiFundos
             }
         }
 
+        //atualiza arquivo de fundos.
+        public void Atualiza_arq_fundos()
+        {
+
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Fundos_Cadastrados.txt"))
+            {
+                try
+                {
+                    foreach (Fundo_de_investimento fundo in Lista_de_fundos)
+                    {
+                        escritor.WriteLine(fundo.getCodigo_fundo()+";"+fundo.getNome_fundo()+";"+fundo.getSigla_fundo()+";"+fundo.getOpcaomoeda());
+                    }
+
+
+                    escritor.Close();
+                    Console.WriteLine("Atualizou!");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao Atualizar arquivo!");
+                }
+
+
+            }
+        }
 
 
 
 
 
 
+
+
+
+
+
+        //cadastra novo fundo na lista
         public void Cadatrar_fundo(Fundo_de_investimento novo_fundo)
         {
-            // criando a lista aqui, toda vez que for adicionar um fundo, se cria uma nova lista
-
-
-            //bool result = false;
+            
+            
             if (Busca_fundo(novo_fundo.getCodigo_fundo()) == null)
             {
-                //Salvo msg = new Salvo();
+                
                 Lista_de_fundos.Add(novo_fundo);
-                //result = true;
-                //msg.Show();
+                Atualiza_arq_fundos();
+
                 Console.WriteLine("Novo fundo incluído com sucesso!");
 
             }
             else
             {
-                //Não_salvo msgn = new Não_salvo();
-                //msgn.Show();
-                //result = false;
+                
                 Console.WriteLine("Erro ao salvar, verifique se codigo está correto!");
             }
-            //return result; ;
+            
         }
 
 
+
+
+
+        //busca fundo pelo codigo
         public Fundo_de_investimento Busca_fundo(int cod)
         {
 
@@ -108,12 +137,15 @@ namespace VaiFundos
         }
 
 
+        //retorna quantidade de fundos na lista+1
         public int contaFundos()
         {
-            return Lista_de_fundos.Count;
+            return Lista_de_fundos.Count+1;
 
         }
 
+
+        //Inprime fundos na tela
         public void Imprimir_fundo(int opc_moeda)
         {
 
@@ -128,7 +160,8 @@ namespace VaiFundos
             
         }
 
-
+        
+        //verifica se fundo existe
         public Fundo_de_investimento Validar_fundo(int cod_fundo)
         {
 
@@ -144,6 +177,13 @@ namespace VaiFundos
 
         }
 
+        //exclui e atualuza arquivo
+        public void excluir_fundo(int cod)
+        {
+
+            Lista_de_fundos.Remove(Busca_fundo(cod));
+            Atualiza_arq_fundos();
+        }
 
 
 

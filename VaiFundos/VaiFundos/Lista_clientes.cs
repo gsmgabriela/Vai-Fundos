@@ -13,7 +13,7 @@ namespace VaiFundos
         List<Cliente> Lista_de_clientes = new List<Cliente>();
 
 
-        
+        //carrega clientes do arquivo para a lista de clientes.
         public void ClientesCadastrados()
         {
             using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
@@ -36,8 +36,7 @@ namespace VaiFundos
                         cpf = int.Parse(Separador[1]);
                         nome = (Separador[2]);
                    
-                        Console.WriteLine(" " + codigo + " " + cpf + " " + nome);
-                        linha = reader.ReadLine();
+                       linha = reader.ReadLine();
 
                        Cliente Novo = new Cliente(codigo,cpf,nome);
                        Lista_de_clientes.Add(Novo);
@@ -51,13 +50,9 @@ namespace VaiFundos
                 }
             }
         }       
-////////////////////////////////////////////////////////////////////////////////////////////////////         
-
-                // FileStream MeuArquivo2 = new FileStream("multiplos.txt", FileMode.Create, FileAccess.Write);
-                // StreamWriter gravador = new StreamWriter(MeuArquivo2, Encoding.Unicode);
 
 
-
+        //Cadastra cliente na lista.
         public void  Cadatrar_cliente(Cliente novo_cliente) {
 
             // criando a lista aqui, toda vez que for adicionar um fundo, se cria uma nova lista
@@ -80,10 +75,11 @@ namespace VaiFundos
             
         }
 
-
+        //atualiza o arquivo de clientes
+        //Caminho varia de acordo com o pc!
         public void Atualiza_arq_clientes()
         {
-            //Acho que o caminho varia de acordo com o pc!
+            
             using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
             {
                 try
@@ -114,30 +110,9 @@ namespace VaiFundos
             Atualiza_arq_clientes();
             }
 
-
-
-
-
-                
-            
-
-
-
         
 
-
-        
-
-
-
-
-
-
-
-
-
-
-        
+        //busca e retorna cliente
         public Cliente Busca_cliente(int cpf)
         {
 
@@ -160,7 +135,7 @@ namespace VaiFundos
 
 
 
-        //retorna o número de clientes na lista.
+        //retorna o número de clientes na lista+1.
         public int contaClientes()
         {
             return Lista_de_clientes.Count+1;
