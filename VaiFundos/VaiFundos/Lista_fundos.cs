@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace VaiFundos
 {
@@ -11,6 +12,55 @@ namespace VaiFundos
 
 
         List<Fundo_de_investimento> Lista_de_fundos = new List<Fundo_de_investimento>();
+
+        // Metodo carrega os dados dos fundos cadastrados pelo arquivo
+
+        public void FundosCadastrados()
+        {
+            using (StreamReader reader = new StreamReader(@"C:\Users\R.ROMUALDOL\Source\Repos\Vai-Fundos\VaiFundos\VaiFundos\Fundos_Cadastrados.txt"))
+            {
+
+                try
+                {
+                    string linha;
+                    String[] Separador;
+                    linha = reader.ReadLine();
+
+                    int codigoFundo = 0, OpMoeda = 0;
+                    String NomeFundo = "";
+                    String SiglaFundo = "";
+                    // Fundos cadastrados no Arquivo                   
+                    while (linha != null)
+                    {
+
+                        Separador = linha.Split(new char[] { ';' });
+
+                        codigoFundo = int.Parse(Separador[0]);
+                        NomeFundo = (Separador[1]);
+                        SiglaFundo = (Separador[2]);
+                        OpMoeda = int.Parse(Separador[3]);
+
+                        Console.WriteLine(" " + codigoFundo + " " + NomeFundo + " " + SiglaFundo +  " " + OpMoeda);
+                        linha = reader.ReadLine();
+
+                        Fundo_de_investimento NovoFundo = new Fundo_de_investimento(codigoFundo,NomeFundo,SiglaFundo,OpMoeda);
+                        Lista_de_fundos.Add(NovoFundo);
+
+                    }
+                    reader.Close();
+
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao adicionar na lista");
+                }
+            }
+        }
+
+
+
+
+
 
 
         public void Cadatrar_fundo(Fundo_de_investimento novo_fundo)

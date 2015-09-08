@@ -33,6 +33,7 @@ namespace VaiFundos
                     case 10:
                         // Teste para add clientes 
                         chamar_cli.ClientesCadastrados();
+                        chamar_fundo.FundosCadastrados();
                         //chamar_cli.Cadatrar_cliente(novo_cliente);
 
                         break;
