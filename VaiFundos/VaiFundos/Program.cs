@@ -33,7 +33,7 @@ namespace VaiFundos
                     case 10:
                         // Teste para add clientes 
                         chamar_cli.ClientesCadastrados();
-                        chamar_fundo.FundosCadastrados();
+                        //chamar_fundo.FundosCadastrados();
                         //chamar_cli.Cadatrar_cliente(novo_cliente);
 
                         break;
@@ -49,6 +49,7 @@ namespace VaiFundos
                             Console.WriteLine("Para gerar relatórios de aplicações,.............digite 3");
                             Console.WriteLine("Para cadastrar novo cliente,.....................digite 4");
                             Console.WriteLine("Para buscar cliente,.............................digite 5");
+                            Console.WriteLine("Para excluir cliente,............................digite 6");
                             Console.WriteLine("Para sair,.......................................digite 0");
 
                             opcao1 = Convert.ToInt32(Console.ReadLine());
@@ -169,6 +170,55 @@ namespace VaiFundos
                                     }
 
                                     break;
+
+
+                                case 6:
+
+                                    int cpf_ex;
+                                    Console.WriteLine("Digite o CPF do cliente!");
+                                    cpf_ex = int.Parse(Console.ReadLine());
+
+                                    if (chamar_cli.Busca_cliente(cpf_ex) != null)
+                                    {
+
+                                        if (chamar_investimentos.possui_apli(cpf_ex))
+                                        {
+
+                                            Console.WriteLine("Cliente possui aplicações.......Resgate ou transfira as mesmas!");
+
+                                        }
+                                        else
+                                        {
+
+
+                                            Console.WriteLine("O cliente: {0}, CPF: {1} " + chamar_cli.Busca_cliente(cpf_ex).getNome_cliente() + chamar_cli.Busca_cliente(cpf_ex).getCpf_cliente() + "Será excluído!");
+                                            Console.WriteLine("Para confirmar digite 1");
+                                            Console.WriteLine("Para cancelar digite 0");
+                                            int opcao = int.Parse(Console.ReadLine());
+
+                                            if (opcao == 1)
+                                            {
+
+                                                chamar_cli.excluir_cliente(cpf_ex);
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Exclusão cancelada!");
+                                            }
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Cliente não existente!");
+                                    }
+                                    
+
+                                    break;
+
+
+
+
                                 case 0:
 
                                     Console.WriteLine("Menu Principal");
@@ -275,7 +325,7 @@ namespace VaiFundos
                                         b_cpf = int.Parse(Console.ReadLine());
 
 
-                                        chamar_investimentos.Buscar_aplicacao_Cliente(b_cpf);
+                                        chamar_investimentos.Buscar_aplicacao_Cliente(b_cpf, cod_fundo_consulta);
                                     }
 
 

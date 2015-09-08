@@ -41,7 +41,7 @@ namespace VaiFundos
 
             // Utilizando para buscar pelo CPF
 
-            public void Buscar_aplicacao_Cliente(int b_cpf )
+            public void Buscar_aplicacao_Cliente(int b_cpf, int cod_fundo )
         {
 
             foreach (Aplicacao aplicacao in lista_aplicacoes)
@@ -49,22 +49,41 @@ namespace VaiFundos
 
                 if (aplicacao.dados_cli.getCpf_cliente() == b_cpf)
                 {
-                    Console.WriteLine("Codigo do fundo: {0}, Nome: {1}, Sigla: {2}, Data:{3}, Valor:{4}" + aplicacao.fundo.getCodigo_fundo()+ aplicacao.fundo.getNome_fundo()+ aplicacao.fundo.getSigla_fundo()+ aplicacao.getData_aplicacao()+ aplicacao.getValor_aplicacao());
-
+                    if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
+                    {
+                        Console.WriteLine("Codigo do fundo: {0}, Nome: {1}, Sigla: {2}, Data:{3}, Valor:{4}" + aplicacao.fundo.getCodigo_fundo() + aplicacao.fundo.getNome_fundo() + aplicacao.fundo.getSigla_fundo() + aplicacao.getData_aplicacao() + aplicacao.getValor_aplicacao());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Cliente Não possui aplicações nesse fundo");
                 }
 
             }
+            
+        }
 
-
-
-
-
-
-
-
-
+     // metodo só pra ver se o cliente possui aplicações:
+     public bool possui_apli(int cpf)
+        {
+            foreach (Aplicacao aplicacao in lista_aplicacoes)
+            {
+                if (aplicacao.dados_cli.getCpf_cliente() == cpf)
+                {
+                    return true;
+                }
+            }
+            return false;
 
         }
+        //fim metodo.
+
+
+
+
+
+
+
 
 
 

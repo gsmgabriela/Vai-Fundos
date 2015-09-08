@@ -16,7 +16,7 @@ namespace VaiFundos
         
         public void ClientesCadastrados()
         {
-            using (StreamReader reader = new StreamReader(@"C:\\Users\\R.ROMUALDOL\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
             {
 
                 try { 
@@ -71,6 +71,7 @@ namespace VaiFundos
             {
 
                 Lista_de_clientes.Add(novo_cliente);
+                Atualiza_arq_clientes();
 
                 Console.WriteLine("Novo Cliente incluído com sucesso!");
 
@@ -83,7 +84,7 @@ namespace VaiFundos
         public void Atualiza_arq_clientes()
         {
             //Acho que o caminho varia de acordo com o pc!
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\R.ROMUALDOL\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
             {
                 try
                 {
@@ -94,7 +95,7 @@ namespace VaiFundos
 
 
                     escritor.Close();
-
+                    Console.WriteLine("Atualizou!");
                 }
                 catch (IOException)
                 {
@@ -104,9 +105,25 @@ namespace VaiFundos
 
             }
         }
-                
-        
 
+        //exclui e atualuza arquivo
+        public void excluir_cliente(int cpf)
+        {
+           
+            Lista_de_clientes.Remove(Busca_cliente(cpf));
+            Atualiza_arq_clientes();
+            }
+
+
+
+
+
+                
+            
+
+
+
+        
 
 
         
@@ -146,7 +163,7 @@ namespace VaiFundos
         //retorna o número de clientes na lista.
         public int contaClientes()
         {
-            return Lista_de_clientes.Count;
+            return Lista_de_clientes.Count+1;
 
         }
         

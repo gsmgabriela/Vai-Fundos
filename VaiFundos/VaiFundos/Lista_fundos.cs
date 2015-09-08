@@ -17,7 +17,7 @@ namespace VaiFundos
 
         public void FundosCadastrados()
         {
-            using (StreamReader reader = new StreamReader(@"C:\Users\R.ROMUALDOL\Source\Repos\Vai-Fundos\VaiFundos\VaiFundos\Fundos_Cadastrados.txt"))
+            using (StreamReader reader = new StreamReader(@"C:\Users\BRUNO\Source\Repos\Vai-Fundos\VaiFundos\VaiFundos\Fundos_Cadastrados.txt"))
             {
 
                 try
