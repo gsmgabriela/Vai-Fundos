@@ -101,58 +101,10 @@ namespace VaiFundos
                 {
                     Console.WriteLine("Erro ao Atualizar arquivo!");
                 }
-
-
+                
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       
 
 
         //buscar pelo codigo da aplicação
@@ -321,11 +273,146 @@ namespace VaiFundos
 
 
 
+        //gerar relatório mensal por fundo-
+        //na main pedir para validar o codigo do fundo primeiro
+        public void Relatorio_mensal(int cod_fundo)
+        {
+            List<Aplicacao> escolha_apli = new List<Aplicacao>();
+
+            foreach (Aplicacao aplicacao in lista_aplicacoes)
+            {
+                if (cod_fundo == aplicacao.fundo.getCodigo_fundo())
+                {
+                    escolha_apli.Add(aplicacao);
+                }
+            }
+            int mes;
+            int ano;
+            Console.WriteLine("Digite o mês:");
+            mes = int.Parse(Console.ReadLine());
+            Console.WriteLine("Digite o ano:");
+            ano = int.Parse(Console.ReadLine());
+            int cont = 0;
+            List<Aplicacao> escolha_data = new List<Aplicacao>();
+
+            Console.WriteLine("APLICAÇÕES FEITAS PARA O FUNDO: " + cod_fundo);
+            Console.WriteLine("Para exibir na tela................ digite 1");
+            Console.WriteLine("Para gerar relatório em arquivo.....digite 2");
+            int opcao = int.Parse(Console.ReadLine());
+
+            if (opcao == 1)
+            {
+                foreach (Aplicacao aplicacao in escolha_apli)
+                {
+                    if (aplicacao.getData_aplicacao().Month == mes && aplicacao.getData_aplicacao().Year == ano)
+                    {
+                        cont++;
+                        escolha_data.Add(aplicacao);
+
+
+                        if (aplicacao.fundo.getOpcaomoeda() == 1)
+                        {
+                            Console.WriteLine("Data" + aplicacao.getData_aplicacao() + "-Cliente: " + aplicacao.dados_cli.getNome_cliente() + " Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Real");
+                        }
+                        else
+                        {
+                            if (aplicacao.fundo.getOpcaomoeda() == 2)
+                            {
+                                Console.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getCodigo_cliente() + "-" + aplicacao.dados_cli.getNome_cliente() + " ...Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Dolar");
+
+                            }
+                        }
+                    }
+                    if (cont == 0)
+                    {
+                        Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
+                    }
+                }
+            }
+
+            else
+            {
+
+                if (opcao == 2)
+                {
+                    using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_fundo_e_mês.txt"))
+                    {
+                        try
+                        {
+
+
+                            foreach (Aplicacao aplicacao in escolha_apli)
+                            {
+                                if (aplicacao.getData_aplicacao().Month == mes && aplicacao.getData_aplicacao().Year == ano)
+                                {
+                                    cont++;
+                                    escolha_data.Add(aplicacao);
+
+
+                                    if (aplicacao.fundo.getOpcaomoeda() == 1)
+                                    {
+                                        escritor.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getNome_cliente() + " ...Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Real");
+                                    }
+                                    else
+                                    {
+                                        if (aplicacao.fundo.getOpcaomoeda() == 2)
+                                        {
+                                            escritor.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getCodigo_cliente() + "-" + aplicacao.dados_cli.getNome_cliente() + " Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Dolar");
+
+                                        }
+                                    }
+                                    escritor.WriteLine("");
+                                }
+                                
+                                if (cont == 0)
+                                {
+                                    Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
+                                }
+                            }
+                            escritor.Close();
+                            Console.WriteLine("Relatório geredo em arquivo!");
+                        }
+                        catch (IOException)
+                        {
+                            Console.WriteLine("Erro ao Atualizar arquivo!");
+                        }
+                    }
+                }
+            }
+        }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
     }
 

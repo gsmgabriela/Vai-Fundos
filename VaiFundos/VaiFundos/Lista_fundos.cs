@@ -157,18 +157,18 @@ namespace VaiFundos
         //Inprime fundos na tela
         public bool Imprimir_fundo(int opc_moeda)
         {
-
+            bool fundos = false;
             foreach (Fundo_de_investimento fundo in Lista_de_fundos)
             {
                 if (fundo.getOpcaomoeda() == opc_moeda)
                 {
 
                     Console.WriteLine("Codigo: {0}, Nome: {1}, Sigla: {2}" + fundo.getCodigo_fundo()+ fundo.getNome_fundo()+ fundo.getSigla_fundo());
-                    return true;
+                    fundos = true;
                 }
                 
             }
-            return false;
+            return fundos;
             
         }
 

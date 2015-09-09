@@ -40,10 +40,8 @@ namespace VaiFundos
                 {
                     
                     case 10:
-                       
-                        
-                        
-                       
+
+
 
                         break;
 
@@ -123,14 +121,20 @@ namespace VaiFundos
 
 
                                 case 3:
+                                    
+                                    Console.WriteLine("codigo do Fundo_de_investimento");
+                                    int cod1 = int.Parse(Console.ReadLine());
+                                    if(chamar_fundo.Validar_fundo(cod1) != null)
+                                    {
+                                        chamar_investimentos.Relatorio_mensal(cod1);
 
-
-
-
-
-
-
-
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Código inválido");
+                                    }
+                                    
+                                    
                                     break;
 
 
@@ -339,14 +343,13 @@ namespace VaiFundos
                                         if (opcaomoeda == 1 || opcaomoeda == 2)
                                         {
                                             Console.WriteLine("Lista de fundos disponíveis para a moeda escolhida: ");
-                                            if (chamar_fundo.Imprimir_fundo(opcaomoeda) == false)
+                                            if (chamar_fundo.Imprimir_fundo(opcaomoeda) == false) 
                                             {
-                                                Console.WriteLine("não há fundos cadastrados program!");
+                                                Console.WriteLine("não há fundos cadastrados!");
                                             }
                                             else
                                             {
-
-
+                                                
                                                 int cod_fundo;
                                                 Console.WriteLine("Digite o codigo do fundo que deseja aplicar:");
                                                 cod_fundo = int.Parse(Console.ReadLine());
