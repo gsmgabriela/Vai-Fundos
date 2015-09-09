@@ -8,6 +8,10 @@ namespace VaiFundos
 {
     class Program
     {
+
+        //Ajustar relatórios de aplicações por cliente case 4!!!!!!!!!!!!
+        
+
         static void Main(string[] args)
         {
 
