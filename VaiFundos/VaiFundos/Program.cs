@@ -118,11 +118,8 @@ namespace VaiFundos
 
 
                                 case 4:
-
-
-                                                
+                                                                                  
                                     
-
                                     int codigo_cli;
                                     int cpf;
                                     string nome;
@@ -145,6 +142,8 @@ namespace VaiFundos
                                     Cliente novo = new Cliente(codigo_cli, cpf, nome);
 
                                     chamar_cli.Cadatrar_cliente(novo);
+                                    
+
 
                                     
 
