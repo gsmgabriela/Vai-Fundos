@@ -11,83 +11,113 @@ namespace VaiFundos
     class Lista_clientes
     {
         List<Cliente> Lista_de_clientes = new List<Cliente>();
-        
+
+
+        //carrega clientes do arquivo para a lista de clientes.
         public void ClientesCadastrados()
         {
-            using (StreamReader reader = new StreamReader(@"C:\\Users\\R.ROMUALDOL\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
             {
 
-                try { 
-                string linha;
-                String[] Separador;
-                linha = reader.ReadLine();
-                
-                int codigo = 0, cpf = 0;
-                String nome = "";
-                    // Ler linha por linha e Adiciona na lista de clientes                    
-                 while (linha != null)
+                try
                 {
+                    string linha;
+                    String[] Separador;
+                    linha = reader.ReadLine();
+
+                    int codigo = 0, cpf = 0;
+                    String nome = "";
+                    // Ler linha por linha e Adiciona na lista de clientes                    
+                    while (linha != null)
+                    {
 
                         Separador = linha.Split(new char[] { ';' });
 
                         codigo = int.Parse(Separador[0]);
                         cpf = int.Parse(Separador[1]);
                         nome = (Separador[2]);
-                   
-                        Console.WriteLine(" " + codigo + " " + cpf + " " + nome);
+
                         linha = reader.ReadLine();
 
-                       Cliente Novo = new Cliente(codigo,cpf,nome);
-                       Lista_de_clientes.Add(Novo);
-                                        
-                }
-                reader.Close();
+                        Cliente Novo = new Cliente(codigo, cpf, nome);
+                        Lista_de_clientes.Add(Novo);
 
-                } catch (IOException )
+                    }
+                    reader.Close();
+
+                }
+                catch (IOException)
                 {
                     Console.WriteLine("Erro ao adicionar na lista");
                 }
             }
-        }       
-////////////////////////////////////////////////////////////////////////////////////////////////////         
+        }
 
-                // FileStream MeuArquivo2 = new FileStream("multiplos.txt", FileMode.Create, FileAccess.Write);
-                // StreamWriter gravador = new StreamWriter(MeuArquivo2, Encoding.Unicode);
 
-        public void  Cadatrar_cliente(Cliente novo_cliente)
+        //Cadastra cliente na lista.
+        public bool Cadatrar_cliente(Cliente novo_cliente)
         {
-            
-
-            
-            Lista_de_clientes.Add(novo_cliente);
-            
-            Console.WriteLine("Novo Cliente incluído com sucesso!");
-            
-
 
             // criando a lista aqui, toda vez que for adicionar um fundo, se cria uma nova lista
 
-            /*
-
-            if (Busca_cliente(novo_cliente.getCodigo_cliente()) == null)
+            if (Busca_cliente(novo_cliente.getCpf_cliente()) != null)
             {
-
-                Lista_de_clientes.Add(novo_cliente);
-
-                Console.WriteLine("Novo Cliente incluído com sucesso!");
+                Console.WriteLine("CPF ja cadastrado, verifique se o mesmo está correto!");
+                return false;
 
             }
             else
             {
 
-                Console.WriteLine("Erro ao salvar, verifique se codigo está correto!");
+                Lista_de_clientes.Add(novo_cliente);
+                Atualiza_arq_clientes();
+
+                Console.WriteLine("Novo Cliente incluído com sucesso!");
+                return true;
             }
-            
-    */
+
 
         }
 
+        //atualiza o arquivo de clientes
+        //Caminho varia de acordo com o pc!
+        public void Atualiza_arq_clientes()
+        {
 
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            {
+                try
+                {
+                    foreach (Cliente cliente in Lista_de_clientes)
+                    {
+                        escritor.WriteLine(cliente.getCodigo_cliente() + ";" + cliente.getCpf_cliente() + ";" + cliente.getNome_cliente());
+                    }
+
+
+                    escritor.Close();
+                    Console.WriteLine("Atualizou!");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao Atualizar arquivo!");
+                }
+
+
+            }
+        }
+
+        //exclui e atualuza arquivo
+        public void excluir_cliente(int cpf)
+        {
+
+            Lista_de_clientes.Remove(Busca_cliente(cpf));
+            Atualiza_arq_clientes();
+            Console.WriteLine("Cliente excluído com sucesso");
+        }
+
+
+
+        //busca e retorna cliente
         public Cliente Busca_cliente(int cpf)
         {
 
@@ -108,11 +138,34 @@ namespace VaiFundos
         }
 
 
+
+        int quant=1;
+        //retorna o número de clientes na lista+1.
         public int contaClientes()
         {
-            return Lista_de_clientes.Count;
-
+            foreach (Cliente cliente in Lista_de_clientes)
+            {
+                if (quant == cliente.getCodigo_cliente())
+                {
+                    quant++;
+                    contaClientes();
+                }
+            }
+            return quant;
         }
-        
+
+
+
+
+
+
+
+
+
+
+
     }
 }
+
+    
+
