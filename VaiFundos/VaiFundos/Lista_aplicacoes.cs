@@ -16,16 +16,15 @@ namespace VaiFundos
         public void Aplicar(Aplicacao nova_aplicacao)
         {
             // criando a lista aqui, toda vez que for adicionar um fundo, se cria uma nova lista
-
-
-            lista_aplicacoes.Add(nova_aplicacao);
             
+            lista_aplicacoes.Add(nova_aplicacao);
+            Atualiza_arq_aplicacoes();
             Console.WriteLine("Aplicação realizada com sucesso !");
         }
 
 
-        //
-        public void AplicaçõesFeitas()
+        //Metodo para ler o arquivo de aplicações
+        public void Aplicações_arq()
         {
             using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Aplicacões.txt"))
             {
@@ -36,22 +35,37 @@ namespace VaiFundos
                     String[] Separador;
                     linha = reader.ReadLine();
 
-                    int codigo = 0, cpf = 0;
-                    String nome = "";
+                    
+
+        int cod_aplicacao = 0;
+        double valor_aplicacao =0;
+        DateTime data_aplicacao;
+        Cliente dados_cli = new Cliente(0,0,"");
+        Fundo_de_investimento fundo = new Fundo_de_investimento(0,"","",0);
+
+
                     // Ler linha por linha e Adiciona na lista de clientes                    
                     while (linha != null)
                     {
 
                         Separador = linha.Split(new char[] { ';' });
 
-                        codigo = int.Parse(Separador[0]);
-                        cpf = int.Parse(Separador[1]);
-                        nome = (Separador[2]);
-
+                        cod_aplicacao = int.Parse(Separador[0]);
+                        valor_aplicacao = double.Parse(Separador[1]);
+                        data_aplicacao = Convert.ToDateTime(Separador[2]);
+                        
                         linha = reader.ReadLine();
 
-                        Cliente Novo = new Cliente(codigo, cpf, nome);
-                        Lista_de_clientes.Add(Novo);
+                        Aplicacao nova_aplicacao = new Aplicacao(valor_aplicacao, data_aplicacao, cod_aplicacao);
+
+                        //atribuindo os dados do cliente a aplicação
+                        nova_aplicacao.dados_cli = new Cliente(int.Parse(Separador[3]), int.Parse(Separador[4]), Separador[5]);
+                        
+                        //atribuindo os dados do fundo a aplicação
+                        nova_aplicacao.fundo = new Fundo_de_investimento(int.Parse(Separador[6]), Separador[7], Separador[8], int.Parse(Separador[9]));
+
+                        lista_aplicacoes.Add(nova_aplicacao);
+                        
 
                     }
                     reader.Close();
@@ -66,6 +80,31 @@ namespace VaiFundos
 
 
 
+        //metodo para atualizar arquivo
+        public void Atualiza_arq_aplicacoes()
+        {
+
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Aplicacões.txt"))
+            {
+                try
+                {
+                    foreach (Aplicacao aplicacao in lista_aplicacoes)
+                    {
+                        escritor.WriteLine(aplicacao.getCod_aplicacao() + ";"+ aplicacao.getValor_aplicacao() + ";" + aplicacao.getData_aplicacao()+";"+aplicacao.dados_cli.getCodigo_cliente()+";"+aplicacao.dados_cli.getCpf_cliente()+";"+aplicacao.dados_cli.getNome_cliente()+";"+aplicacao.fundo.getCodigo_fundo()+";"+aplicacao.fundo.getNome_fundo()+";"+aplicacao.fundo.getSigla_fundo()+";"+aplicacao.fundo.getOpcaomoeda());
+                    }
+
+
+                    escritor.Close();
+                    Console.WriteLine("Atualizou!");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao Atualizar arquivo!");
+                }
+
+
+            }
+        }
 
 
 

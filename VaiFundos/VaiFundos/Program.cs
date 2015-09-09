@@ -20,7 +20,7 @@ namespace VaiFundos
 
             chamar_fundo.FundosCadastrados();
             chamar_cli.ClientesCadastrados();
-
+            chamar_investimentos.Aplicações_arq();
 
 
 
@@ -77,7 +77,7 @@ namespace VaiFundos
                                     }
                                     else
                                     {
-                                        codigo_fundo = chamar_fundo.contaFundos() + 1;
+                                        codigo_fundo = chamar_fundo.contaFundos();
                                     }
                                     int opcaomoeda;
                                     Console.WriteLine("Escolha o tipo de moeda para este fundo!");
