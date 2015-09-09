@@ -139,7 +139,7 @@ namespace VaiFundos
                     {
                         Console.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
                         Console.WriteLine(" Data da aplicação"+aplicacao.getData_aplicacao() +"Valor: "+ aplicacao.getValor_aplicacao());
-                        Console.WriteLine("....................................................................................................................................");
+                        Console.WriteLine(".......................................................................................................");
                     }
                 }
                 else
@@ -380,46 +380,156 @@ namespace VaiFundos
                         }
                     }
                 }
+                
+            }
+        }
+
+        //grava em arquivo aplicações separadas por cliente e fundo
+        public void Gerar_relatorio_por_cliente_e_fundo(int b_cpf, int cod_fundo)
+        {
+            int cont=0;
+
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_cliemte_e_fundo.txt"))
+            {
+                try
+                {
+                    
+                    foreach (Aplicacao aplicacao in lista_aplicacoes)
+                    {
+                        
+
+                if (aplicacao.dados_cli.getCpf_cliente() == b_cpf)
+                {
+                    if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
+                    {
+                        cont++;
+                        escritor.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                        escritor.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
+                        escritor.WriteLine(".......................................................................................................");
+                    }             
+                }
+                
+                        if (cont == 0)
+                        {
+                            Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
+                        }
+                    }
+                    escritor.Close();
+                    Console.WriteLine("Relatório geredo em arquivo!");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao Atualizar arquivo!");
+                }
             }
         }
 
 
 
+        public void Gerar_relatorio_por_cliente(int b_cpf)
+        {
+            int cont = 0;
+
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_cliemte_e_fundo.txt"))
+            {
+                try
+                {
+
+                    foreach (Aplicacao aplicacao in lista_aplicacoes)
+                    {
 
 
+                        if (aplicacao.dados_cli.getCpf_cliente() == b_cpf)
+                        {
+                            
+                                cont++;
+                                escritor.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                                escritor.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
+                                escritor.WriteLine(".......................................................................................................");
+                            
+                        }
+
+                        if (cont == 0)
+                        {
+                            Console.WriteLine("Não há aplicações feitas por esse cliente");
+                        }
+                    }
+                    escritor.Close();
+                    Console.WriteLine("Relatório geredo em arquivo!");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao Atualizar arquivo!");
+                }
+            }
+        }
 
 
+        public void Exibir_aplicacoes_por_cliente(int b_cpf)
+        {
+            int cont = 0;
+
+            
+
+                    foreach (Aplicacao aplicacao in lista_aplicacoes)
+                    {
 
 
+                        if (aplicacao.dados_cli.getCpf_cliente() == b_cpf)
+                        {
 
+                            cont++;
+                            Console.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                            Console.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
+                            Console.WriteLine(".......................................................................................................");
 
+                        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        if (cont == 0)
+                        {
+                            Console.WriteLine("Não há aplicações feitas por esse cliente");
+                        }
+                    }
+                    
+                }
+                
+               
         
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+        
     }
 
 
-}
+
 
  
 

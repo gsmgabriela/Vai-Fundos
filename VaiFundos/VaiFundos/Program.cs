@@ -157,12 +157,29 @@ namespace VaiFundos
                                             int cod_fun = int.Parse(Console.ReadLine());
                                             if (chamar_fundo.Validar_fundo(cod_fun)!= null)
                                             {
-                                                chamar_investimentos.Buscar_aplicacao_Cliente(cpf_cli, cod_fun);
+                                                Console.WriteLine("Para exibir na tela......digite 1");
+                                                Console.WriteLine("Para gerar relatório.....digite 2");
+                                                int escolha1 = int.Parse(Console.ReadLine());
+
+                                                if (escolha1 ==1) {
+
+                                                    chamar_investimentos.Buscar_aplicacao_Cliente(cpf_cli, cod_fun);
+                                                }
+                                                else
+                                                {
+                                                    if (escolha1 ==2)
+                                                    {
+                                                        //chamar método de gerar arquivo
+                                                        chamar_investimentos.Gerar_relatorio_por_cliente_e_fundo(cpf_cli, cod_fun);
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Opção inválida!");
+                                                    }
+                                                }
                                                 
-
-
-
-
                                             }
                                             else
                                             {
@@ -177,13 +194,27 @@ namespace VaiFundos
                                             if (escolha == 2)
                                             {
 
+                                                //imprimir todos na tela ou no arquivo
+                                                Console.WriteLine("Para exibir na tela......digite 1");
+                                                Console.WriteLine("Para gerar relatório.....digite 2");
+                                                int escolha1 = int.Parse(Console.ReadLine());
 
-
-
-
-
-
-
+                                                if (escolha1 == 1)
+                                                {
+                                                    chamar_investimentos.Exibir_aplicacoes_por_cliente(cpf_cli);
+                                                }
+                                                else
+                                                {
+                                                    if (escolha1 ==2 )
+                                                    {
+                                                        chamar_investimentos.Gerar_relatorio_por_cliente(cpf_cli);
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Opção inválida!");
+                                                    }
+                                                }
+                                                
                                             }
                                             else
                                             {
@@ -198,10 +229,6 @@ namespace VaiFundos
                                     }
                                     
                                    
-
-
-
-
                                     break;
                                     
 
