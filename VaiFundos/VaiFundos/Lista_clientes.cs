@@ -139,17 +139,16 @@ namespace VaiFundos
 
 
 
-
+        int quant=1;
         //retorna o número de clientes na lista+1.
         public int contaClientes()
         {
-            int quant = Lista_de_clientes.Count;
-
             foreach (Cliente cliente in Lista_de_clientes)
             {
                 if (quant == cliente.getCodigo_cliente())
                 {
                     quant++;
+                    contaClientes();
                 }
             }
             return quant;

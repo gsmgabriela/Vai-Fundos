@@ -3,24 +3,118 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace VaiFundos
 {
     class Lista_aplicacoes
     {
         List<Aplicacao> lista_aplicacoes = new List<Aplicacao>();
 
+
+
+        //Metodo para fazer aplicação
         public void Aplicar(Aplicacao nova_aplicacao)
         {
             // criando a lista aqui, toda vez que for adicionar um fundo, se cria uma nova lista
 
 
             lista_aplicacoes.Add(nova_aplicacao);
-
-
+            
             Console.WriteLine("Aplicação realizada com sucesso !");
-
         }
+
+
+        //
+        public void AplicaçõesFeitas()
+        {
+            using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Aplicacões.txt"))
+            {
+
+                try
+                {
+                    string linha;
+                    String[] Separador;
+                    linha = reader.ReadLine();
+
+                    int codigo = 0, cpf = 0;
+                    String nome = "";
+                    // Ler linha por linha e Adiciona na lista de clientes                    
+                    while (linha != null)
+                    {
+
+                        Separador = linha.Split(new char[] { ';' });
+
+                        codigo = int.Parse(Separador[0]);
+                        cpf = int.Parse(Separador[1]);
+                        nome = (Separador[2]);
+
+                        linha = reader.ReadLine();
+
+                        Cliente Novo = new Cliente(codigo, cpf, nome);
+                        Lista_de_clientes.Add(Novo);
+
+                    }
+                    reader.Close();
+
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Erro ao adicionar na lista");
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //buscar pelo codigo da aplicação
 
@@ -39,9 +133,10 @@ namespace VaiFundos
             }
         }
 
-            // Utilizando para buscar pelo CPF
 
-            public void Buscar_aplicacao_Cliente(int b_cpf, int cod_fundo )
+
+            // Utilizando para buscar pelo CPF
+           public void Buscar_aplicacao_Cliente(int b_cpf, int cod_fundo )
         {
 
             foreach (Aplicacao aplicacao in lista_aplicacoes)
@@ -63,6 +158,8 @@ namespace VaiFundos
             
         }
 
+
+
      // metodo só pra ver se o cliente possui aplicações:
      public bool possui_apli(int cpf)
         {
@@ -78,44 +175,11 @@ namespace VaiFundos
         }
         //fim metodo.
 
+            
+        
 
 
-
-
-
-
-
-
-
-        public Aplicacao Retorna_aplicacao(int cpf, int cod_fundo)
-        {
-
-            foreach (Aplicacao aplicacao in lista_aplicacoes)
-            {
-                if (aplicacao.dados_cli.getCpf_cliente() == cpf)
-                {
-                    if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
-                    {
-                        return aplicacao;
-                    }
-                }
-            }
-            return null;
-
-        }
-
-
-
-
-
-
-        public int containvestimentos()
-        {
-            return lista_aplicacoes.Count + 1;
-
-        }
-        //
-
+        //ver pra que serve
         public void RetornoAplicacaoDados(int cod_apl)
         {
             DateTime Data_Hoje;
@@ -199,6 +263,22 @@ namespace VaiFundos
         }
 
 
+
+
+        int quant = 1;
+        //retorna o número de aplicações na lista+1.
+        public int containvestimentos()
+        {
+            foreach (Aplicacao aplicacao in lista_aplicacoes)
+            {
+                if (quant == aplicacao.getCod_aplicacao())
+                {
+                    quant++;
+                    containvestimentos();
+                }
+            }
+            return quant;
+        }
 
 
 

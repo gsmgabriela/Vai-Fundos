@@ -109,7 +109,15 @@ namespace VaiFundos
                                     Console.WriteLine("Digite o codigo do fundo de investimento: ");
                                     codigo = Convert.ToInt32(Console.ReadLine());
 
-                                    Console.WriteLine("Nome: " + chamar_fundo.Busca_fundo(codigo).getNome_fundo());
+                                    if (chamar_fundo.Busca_fundo(codigo) == null)
+                                    {
+                                        Console.WriteLine("Não foi possível encontrar o fundo, verifique o codigo!");
+                                    }
+                                    else
+                                    {
+
+                                        Console.WriteLine("Nome: " + chamar_fundo.Busca_fundo(codigo).getNome_fundo());
+                                    }
 
                                     break;
 
@@ -246,7 +254,21 @@ namespace VaiFundos
                                         }
                                         else
                                         {
-                                            chamar_fundo.excluir_fundo(cod);
+                                            Console.WriteLine("O fundo: {0}, Cod: {1}-Sigla{2} " + chamar_fundo.Busca_fundo(cod).getCodigo_fundo()+ chamar_fundo.Busca_fundo(cod).getNome_fundo()+ chamar_fundo.Busca_fundo(cod).getSigla_fundo() + "Será excluído!");
+                                            Console.WriteLine("Para confirmar digite 1");
+                                            Console.WriteLine("Para cancelar digite 0");
+                                            int opcao = int.Parse(Console.ReadLine());
+
+                                            if (opcao == 1)
+                                            {
+                                                chamar_fundo.excluir_fundo(cod);
+
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Exclusão cancelada!");
+                                            }
+                                            
 
 
                                         }

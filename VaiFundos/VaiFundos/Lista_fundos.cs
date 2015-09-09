@@ -138,11 +138,20 @@ namespace VaiFundos
 
 
         //retorna quantidade de fundos na lista+1
+        int quant = 1;
         public int contaFundos()
         {
-            return Lista_de_fundos.Count+1;
-
+            foreach (Fundo_de_investimento fundo in Lista_de_fundos)
+            {
+                if (quant == fundo.getCodigo_fundo())
+                {
+                    quant++;
+                    contaFundos();
+                }
+            }
+            return quant;
         }
+
 
 
         //Inprime fundos na tela
