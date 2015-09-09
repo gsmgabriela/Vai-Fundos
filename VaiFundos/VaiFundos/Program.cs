@@ -53,11 +53,12 @@ namespace VaiFundos
 
                             Console.WriteLine("Para cadastrar novo fundo de investimentos,......digite 1");
                             Console.WriteLine("Para buscar fundo de investimento,.............. digite 2");
-                            Console.WriteLine("Para gerar relatórios de aplicações,.............digite 3");
-                            Console.WriteLine("Para cadastrar novo cliente,.....................digite 4");
-                            Console.WriteLine("Para buscar cliente,.............................digite 5");
-                            Console.WriteLine("Para excluir cliente,............................digite 6");
-                            Console.WriteLine("Para excluir fundo,..............................digite 7");
+                            Console.WriteLine("Para gerar relatório de aplicações por mês,......digite 3");
+                            Console.WriteLine("Para gerar relatório de aplicações por cliente,..digite 4");
+                            Console.WriteLine("Para cadastrar novo cliente,.....................digite 5");
+                            Console.WriteLine("Para buscar cliente,.............................digite 6");
+                            Console.WriteLine("Para excluir cliente,............................digite 7");
+                            Console.WriteLine("Para excluir fundo,..............................digite 8");
                             Console.WriteLine("Para sair,.......................................digite 0");
 
                             opcao1 = Convert.ToInt32(Console.ReadLine());
@@ -114,7 +115,7 @@ namespace VaiFundos
                                     else
                                     {
 
-                                        Console.WriteLine("Nome: " + chamar_fundo.Busca_fundo(codigo).getNome_fundo());
+                                        Console.WriteLine("Nome: " + chamar_fundo.Busca_fundo(codigo).getNome_fundo()+"- "+chamar_fundo.Busca_fundo(codigo).getSigla_fundo());
                                     }
 
                                     break;
@@ -138,9 +139,73 @@ namespace VaiFundos
                                     break;
 
 
-
-
                                 case 4:
+
+                                    Console.Write("Digite o cpf do cliente: ");
+                                    int cpf_cli = int.Parse(Console.ReadLine());
+
+                                   if(chamar_cli.Busca_cliente(cpf_cli) !=null){
+
+
+                                        Console.WriteLine("para escolher fundo, digite.....1");
+                                        Console.WriteLine("Para imprimir todos,............2");
+                                        int escolha = int.Parse(Console.ReadLine());
+
+                                        if (escolha == 1)
+                                        {
+                                            Console.WriteLine("digite o código do fundo");
+                                            int cod_fun = int.Parse(Console.ReadLine());
+                                            if (chamar_fundo.Validar_fundo(cod_fun)!= null)
+                                            {
+                                                chamar_investimentos.Buscar_aplicacao_Cliente(cpf_cli, cod_fun);
+                                                
+
+
+
+
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Fundo não encontrado!");
+                                            }
+
+
+                                        }
+                                        
+                                        else
+                                        {
+                                            if (escolha == 2)
+                                            {
+
+
+
+
+
+
+
+
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Opção inválida!");
+                                            }
+                                        }
+                                   
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Cliente não encontrado, verifique o cpf!");
+                                    }
+                                    
+                                   
+
+
+
+
+                                    break;
+                                    
+
+                                case 5:
                                     
 
                                     int codigo_cli;
@@ -178,7 +243,7 @@ namespace VaiFundos
                                     break;
 
 
-                                case 5:
+                                case 6:
 
                                     int b_cpf;
                                     Console.WriteLine("Digite o seu CPF: ");
@@ -198,7 +263,7 @@ namespace VaiFundos
                                     break;
 
 
-                                case 6:
+                                case 7:
 
                                     int cpf_ex;
                                     Console.WriteLine("Digite o CPF do cliente!");
@@ -242,7 +307,7 @@ namespace VaiFundos
 
                                     break;
 
-                                case 7:
+                                case 8:
 
                                     Console.WriteLine("Digite o código do fundo:");
                                     int cod = int.Parse(Console.ReadLine());
@@ -400,7 +465,7 @@ namespace VaiFundos
                                     // Consultar aplicações pelo codigo
                                 case 2:
 
-                                    Console.WriteLine("Digite o código do fundo para ver a sua aplicações");
+                                    Console.WriteLine("Digite o código do fundo para ver suas aplicações");
                                     int cod_fundo_consulta = int.Parse(Console.ReadLine());
 
                                     if (chamar_fundo.Validar_fundo(cod_fundo_consulta) != null)

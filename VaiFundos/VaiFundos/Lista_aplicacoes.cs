@@ -137,12 +137,14 @@ namespace VaiFundos
                 {
                     if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
                     {
-                        Console.WriteLine("Codigo do fundo: {0}, Nome: {1}, Sigla: {2}, Data:{3}, Valor:{4}" + aplicacao.fundo.getCodigo_fundo() + aplicacao.fundo.getNome_fundo() + aplicacao.fundo.getSigla_fundo() + aplicacao.getData_aplicacao() + aplicacao.getValor_aplicacao());
+                        Console.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                        Console.WriteLine(" Data da aplicação"+aplicacao.getData_aplicacao() +"Valor: "+ aplicacao.getValor_aplicacao());
+                        Console.WriteLine("....................................................................................................................................");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Cliente Não possui aplicações nesse fundo");
+                    Console.WriteLine("Você não possui aplicações nesse fundo");
                 }
 
             }
