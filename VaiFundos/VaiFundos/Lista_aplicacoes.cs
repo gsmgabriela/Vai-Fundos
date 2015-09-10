@@ -109,7 +109,7 @@ namespace VaiFundos
 
         //buscar pelo codigo da aplicação
 
-        public void Buscar_aplicacao(int cod_apl)
+        public Aplicacao Buscar_aplicacao(int cod_apl)
         {
 
             foreach (Aplicacao aplicacao in lista_aplicacoes)
@@ -117,11 +117,12 @@ namespace VaiFundos
 
                 if (aplicacao.getCod_aplicacao() == cod_apl)
                 {
-                    Console.WriteLine("Codigo do fundo: {0}, Nome: {1}, Sigla: {2}, Data:{3}, Valor:{4}" + aplicacao.fundo.getCodigo_fundo(), aplicacao.fundo.getNome_fundo(), aplicacao.fundo.getSigla_fundo(), aplicacao.getData_aplicacao(), aplicacao.getValor_aplicacao());
+                    return aplicacao;
 
                 }
 
             }
+            return null;
         }
 
 
@@ -492,31 +493,36 @@ namespace VaiFundos
                     }
                     
                 }
-                
-               
         
+        public void transfere(Aplicacao aplicacao, Fundo_de_investimento fundo_novo)
+        {
+            int cont = 0;
+            foreach(Aplicacao apli in lista_aplicacoes)
+            {
 
+                if(aplicacao.getCod_aplicacao() == apli.getCod_aplicacao())
+                {
+                    apli.fundo.setCodigo_fundo(fundo_novo.getCodigo_fundo());
+                    apli.fundo.setNome_fundo(fundo_novo.getNome_fundo());
+                    apli.fundo.setSigla_fundo(fundo_novo.getSigla_fundo());
+                    cont++;
+                }
+            }
 
+            Atualiza_arq_aplicacoes();
 
+            if (cont != 0)
+            {
+                Console.WriteLine("Aplicação transferida com sucesso!");
+            }
+            else
+            {
+                Console.WriteLine("Transferência não realizada, verifique se os dados estão corretos!");
+            }
+            
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 

@@ -197,14 +197,7 @@ namespace VaiFundos
             Atualiza_arq_fundos();
             Console.WriteLine("Fundo excluído com sucesso!");
         }
-
-
-
-
-
-
-
-
+        
 
     }
 }
