@@ -43,12 +43,7 @@ namespace VaiFundos
                 switch (opcao0)
                 {
                     
-                    case 10:
-
-
-
-                        break;
-
+                   
                     case 1:
 
 
@@ -610,31 +605,24 @@ namespace VaiFundos
                                         Console.WriteLine("Cliente não encontrado, verifique CPF!");
                                     }
 
-
-                                    
-
-
-
-
-
-
-
-
-
-
-
-
+                                   
 
                                     break;
                                     
-                                    }
+                                    }//término de menu para cliente
 
                             }
                             break;
-                        }
+                        } //término de menu para adm
                 }
+
+
+
+
+
+
+
             }
         }
     }
 
-//vai rodrigo agora é com vc !!
