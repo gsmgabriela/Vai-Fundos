@@ -399,6 +399,13 @@ namespace VaiFundos
                         {
                             //opções para o cliente
 
+                            Console.WriteLine("Digite o CPF do investidor: ");
+                            int cpf_inv = int.Parse(Console.ReadLine());
+
+                            //validar cliente
+                            if (chamar_cli.Busca_cliente(cpf_inv) != null) {
+                                Console.WriteLine("Bem vindo @ - " + chamar_cli.Busca_cliente(cpf_inv).getNome_cliente());
+
                             Console.WriteLine("Para aplicar em fundo,...........................digite 1");
                             Console.WriteLine("Consultar aplicações,............................digite 2");
                             Console.WriteLine("Para fazer resgate,..............................digite 3");
@@ -407,166 +414,248 @@ namespace VaiFundos
 
                             opcao2 = Convert.ToInt32(Console.ReadLine());
 
-                            switch (opcao2)
-                            {
-                                
-                                case 1:
-                                    //case para aplicar
+                                switch (opcao2)
+                                {
 
-                                    int b_cpf;
-                                    Console.WriteLine("Digite o seu CPF: ");
-                                    b_cpf = int.Parse(Console.ReadLine());
+                                    case 1:
+                                        //case para aplicar
 
-                                    if (chamar_cli.Busca_cliente(b_cpf) == null)
-                                    {
-                                        Console.WriteLine("Dado incorreto, verifique CPF!");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Bem vindo(a): " + chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+                                        int b_cpf;
+                                        Console.WriteLine("Digite o seu CPF: ");
+                                        b_cpf = int.Parse(Console.ReadLine());
 
-
-                                        int opcaomoeda;
-                                        Console.WriteLine("Escolha a moeda para a aplicação: ");
-                                        Console.WriteLine("Para Real,................digite 1");
-                                        Console.WriteLine("Para dolar,...............digite 2");
-                                        opcaomoeda = int.Parse(Console.ReadLine());
-                                        //se digitar moeda inesistente:
-                                        if (opcaomoeda == 1 || opcaomoeda == 2)
+                                        if (chamar_cli.Busca_cliente(b_cpf) == null)
                                         {
-                                            Console.WriteLine("Lista de fundos disponíveis para a moeda escolhida: ");
-                                            if (chamar_fundo.Imprimir_fundo(opcaomoeda) == false) 
+                                            Console.WriteLine("Dado incorreto, verifique CPF!");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Bem vindo(a): " + chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+
+
+                                            int opcaomoeda;
+                                            Console.WriteLine("Escolha a moeda para a aplicação: ");
+                                            Console.WriteLine("Para Real,................digite 1");
+                                            Console.WriteLine("Para dolar,...............digite 2");
+                                            opcaomoeda = int.Parse(Console.ReadLine());
+                                            //se digitar moeda inesistente:
+                                            if (opcaomoeda == 1 || opcaomoeda == 2)
                                             {
-                                                Console.WriteLine("não há fundos cadastrados!");
+                                                Console.WriteLine("Lista de fundos disponíveis para a moeda escolhida: ");
+                                                if (chamar_fundo.Imprimir_fundo(opcaomoeda) == false)
+                                                {
+                                                    Console.WriteLine("não há fundos cadastrados!");
+                                                }
+                                                else
+                                                {
+
+                                                    int cod_fundo;
+                                                    Console.WriteLine("Digite o codigo do fundo que deseja aplicar:");
+                                                    cod_fundo = int.Parse(Console.ReadLine());
+
+
+
+                                                    if (chamar_fundo.Validar_fundo(cod_fundo) != null)
+                                                    {
+                                                        Console.WriteLine("...." + chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo() + "...." + chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo());
+                                                        double valor_apl;
+                                                        DateTime dt_apl;
+                                                        Console.WriteLine("Digite o valor que deseja aplicar: ");
+                                                        valor_apl = double.Parse(Console.ReadLine());
+                                                        dt_apl = DateTime.Today;
+                                                        Console.WriteLine("Data da aplicação:" + dt_apl);
+
+                                                        chamar_investimentos.containvestimentos();
+
+                                                        Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
+
+                                                        //atribuindo os dados do cliente a aplicação
+                                                        nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+
+
+
+
+                                                        //atribuindo os dados do fundo a aplicação
+                                                        nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo, chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(), chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
+
+                                                        chamar_investimentos.Aplicar(nova_aplicacao);
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Código incorreto!");
+                                                    }
+                                                }
                                             }
+
                                             else
                                             {
+                                                Console.WriteLine("Moeda inválida!");
+                                            }
+
+                                        }
+                                        break;
+                                    // Consultar aplicações pelo codigo
+                                    case 2:
+
+                                        Console.WriteLine("Digite o código do fundo para ver suas aplicações");
+                                        int cod_fundo_consulta = int.Parse(Console.ReadLine());
+
+                                        if (chamar_fundo.Validar_fundo(cod_fundo_consulta) != null)
+                                        {
+                                            Console.WriteLine("Digite o seu CPF");
+                                            b_cpf = int.Parse(Console.ReadLine());
+
+                                            chamar_investimentos.Buscar_aplicacao_Cliente(b_cpf, cod_fundo_consulta);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Código não encontrado!");
+                                        }
+
+                                        break;
+
+                                    case 3:
+
+                                        Console.WriteLine("Digite o código da aplicação:");
+                                        int cod_aplic = int.Parse(Console.ReadLine());
+
+                                        if (chamar_investimentos.Buscar_aplicacao(cod_aplic).dados_cli.getCpf_cliente() == cpf_inv)//cpf_inv é validado no menu de clientes
+                                        {
+                                            Console.WriteLine(chamar_investimentos.Buscar_aplicacao(cod_aplic).dados_cli.getNome_cliente()+" - Resgatar a aplicação abaixo?");
+                                            Console.WriteLine("Código da aplicação: "+chamar_investimentos.Buscar_aplicacao(cod_aplic).getCod_aplicacao()+" Valor: "+ chamar_investimentos.Buscar_aplicacao(cod_aplic).getValor_aplicacao()+" Data: "+ chamar_investimentos.Buscar_aplicacao(cod_aplic).getData_aplicacao());
+                                            Console.WriteLine("Cógdigo do fundo: "+ chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getCodigo_fundo()+" Nome: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getNome_fundo()+"-"+ chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getSigla_fundo());
+
+                                            Console.WriteLine("Se sim, digite 1");
+                                            Console.WriteLine("");
+                                            int esc_resg = int.Parse(Console.ReadLine());
+
+                                            if (esc_resg == 1)
+                                            {
+
+                                                if (chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getOpcaomoeda() == 1) {
+
+                                                    //usar classe real
+                                                    Real apli_real = new Real("real",'R');//verificar tam da variavel pq não aceita o $
+
+                                                  Console.WriteLine("-20% IRRF: "+ apli_real.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic)));
+                                                    //método na classe moeda para verificar tempo de aplicação!!
                                                 
-                                                int cod_fundo;
-                                                Console.WriteLine("Digite o codigo do fundo que deseja aplicar:");
-                                                cod_fundo = int.Parse(Console.ReadLine());
-                                                
-
-
-                                                if (chamar_fundo.Validar_fundo(cod_fundo) != null)
-                                                {
-                                                    Console.WriteLine("...." + chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo() + "...." + chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo());
-                                                    double valor_apl;
-                                                    DateTime dt_apl;
-                                                    Console.WriteLine("Digite o valor que deseja aplicar: ");
-                                                    valor_apl = double.Parse(Console.ReadLine());
-                                                    dt_apl = DateTime.Today;
-                                                    Console.WriteLine("Data da aplicação:" + dt_apl);
-
-                                                    chamar_investimentos.containvestimentos();
-
-                                                    Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
-
-                                                    //atribuindo os dados do cliente a aplicação
-                                                    nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
-
-
-
-
-                                                    //atribuindo os dados do fundo a aplicação
-                                                    nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo, chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(), chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
-
-                                                    chamar_investimentos.Aplicar(nova_aplicacao);
 
 
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("Código incorreto!");
-                                                }
-                                            }
-                                        }
+                                                    if(chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getOpcaomoeda() == 2)
+                                                    {
+                                                        //usar classe dolar
+                                                        Dolar apli_dolar = new Dolar("Dolar",'D');
 
+                                                        apli_dolar.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic));
+
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Resgate não pode ser feito");
+                                                    }
+                                                }
+
+                                                
+
+
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Resgate cancelado!");
+
+                                            }
+
+                                            
+
+
+
+                                        }
                                         else
                                         {
-                                            Console.WriteLine("Moeda inválida!");
+                                            Console.WriteLine("Cliente não associado a essa aplicação, consulte suas aplicações e confira o código!");
                                         }
 
-                                    }                      
+
+                                            
+
+
+
+
+
+
+
+
+
+
+
                                         break;
-                                    // Consultar aplicações pelo codigo
-                                case 2:
 
-                                    Console.WriteLine("Digite o código do fundo para ver suas aplicações");
-                                    int cod_fundo_consulta = int.Parse(Console.ReadLine());
+                                    case 4:
+                                        Console.WriteLine("Digite o cpf do investidor: ");
+                                        int cpf = int.Parse(Console.ReadLine());
 
-                                    if (chamar_fundo.Validar_fundo(cod_fundo_consulta) != null)
-                                    {
-                                        Console.WriteLine("Digite o seu CPF");
-                                        b_cpf = int.Parse(Console.ReadLine());
-
-                                        chamar_investimentos.Buscar_aplicacao_Cliente(b_cpf, cod_fundo_consulta);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Código não encontrado!");
-                                    }
-                                    
-                                    break;
-
-                                case 3:
-
-
-
-
-
-
-
-                                    break;
-
-                                case 4:
-                                    Console.WriteLine("Digite o cpf do investidor: ");
-                                    int cpf = int.Parse(Console.ReadLine());
-
-                                   if (chamar_cli.Busca_cliente(cpf) != null){
-                                        Console.WriteLine(".........."+chamar_cli.Busca_cliente(cpf).getNome_cliente()+"..........");
-                                        Console.WriteLine("Digite o código da aplicação a transferir:");
-                                        int cod_apli = int.Parse(Console.ReadLine());
-
-                                        if (chamar_investimentos.Buscar_aplicacao(cod_apli) != null)
+                                        if (chamar_cli.Busca_cliente(cpf) != null)
                                         {
-                                            if (chamar_investimentos.Buscar_aplicacao(cod_apli).dados_cli.getCodigo_cliente() == chamar_cli.Busca_cliente(cpf).getCodigo_cliente())
+                                            Console.WriteLine(".........." + chamar_cli.Busca_cliente(cpf).getNome_cliente() + "..........");
+                                            Console.WriteLine("Digite o código da aplicação a transferir:");
+                                            int cod_apli = int.Parse(Console.ReadLine());
+
+                                            if (chamar_investimentos.Buscar_aplicacao(cod_apli) != null)
                                             {
-
-
-                                                Console.WriteLine("Transferir a aplicação: ");
-                                                Console.WriteLine("Codigo da aplicação: " + cod_apli + " Data: " + chamar_investimentos.Buscar_aplicacao(cod_apli).getData_aplicacao() + " Valor: " + chamar_investimentos.Buscar_aplicacao(cod_apli).getValor_aplicacao());
-                                                Console.WriteLine("Codigo do fundo atual: " + chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getCodigo_fundo() + " Nome: " + chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getNome_fundo() + "-" + chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getSigla_fundo());
-
-                                                Console.WriteLine(" ");
-
-                                                Console.WriteLine("Digite o codigo do fundo a receber a aplicação: ");
-                                                int cod_fun = int.Parse(Console.ReadLine());
-
-                                                if (chamar_fundo.Validar_fundo(cod_fun) != null)
+                                                if (chamar_investimentos.Buscar_aplicacao(cod_apli).dados_cli.getCodigo_cliente() == chamar_cli.Busca_cliente(cpf).getCodigo_cliente())
                                                 {
 
-                                                    if (chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getOpcaomoeda() == chamar_fundo.Busca_fundo(cod_fun).getOpcaomoeda())
+
+                                                    Console.WriteLine("Transferir a aplicação: ");
+                                                    Console.WriteLine("Codigo da aplicação: " + cod_apli + " Data: " + chamar_investimentos.Buscar_aplicacao(cod_apli).getData_aplicacao() + " Valor: " + chamar_investimentos.Buscar_aplicacao(cod_apli).getValor_aplicacao());
+                                                    Console.WriteLine("Codigo do fundo atual: " + chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getCodigo_fundo() + " Nome: " + chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getNome_fundo() + "-" + chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getSigla_fundo());
+
+                                                    Console.WriteLine(" ");
+
+                                                    Console.WriteLine("Digite o codigo do fundo a receber a aplicação: ");
+                                                    int cod_fun = int.Parse(Console.ReadLine());
+
+                                                    if (chamar_fundo.Validar_fundo(cod_fun) != null)
                                                     {
 
-                                                        Console.WriteLine(" Código: " + chamar_fundo.Busca_fundo(cod_fun).getCodigo_fundo() + " Nome:" + chamar_fundo.Busca_fundo(cod_fun).getNome_fundo() + "- " + chamar_fundo.Busca_fundo(cod_fun).getSigla_fundo());
-                                                        Console.WriteLine("Para confirmar transferência para o fundo acima........Digite 1 ");
-                                                        Console.WriteLine("Para cancelar transferência ...........................Digite 2");
-                                                        int opc_tr = int.Parse(Console.ReadLine());
-
-                                                        if (opc_tr == 1)
+                                                        if (chamar_investimentos.Buscar_aplicacao(cod_apli).fundo.getOpcaomoeda() == chamar_fundo.Busca_fundo(cod_fun).getOpcaomoeda())
                                                         {
 
+                                                            Console.WriteLine(" Código: " + chamar_fundo.Busca_fundo(cod_fun).getCodigo_fundo() + " Nome:" + chamar_fundo.Busca_fundo(cod_fun).getNome_fundo() + "- " + chamar_fundo.Busca_fundo(cod_fun).getSigla_fundo());
+                                                            Console.WriteLine("Para confirmar transferência para o fundo acima........Digite 1 ");
+                                                            Console.WriteLine("Para cancelar transferência ...........................Digite 2");
+                                                            int opc_tr = int.Parse(Console.ReadLine());
 
-                                                            chamar_investimentos.transfere(chamar_investimentos.Buscar_aplicacao(cod_apli), chamar_fundo.Busca_fundo(cod_fun));
+                                                            if (opc_tr == 1)
+                                                            {
+
+
+                                                                chamar_investimentos.transfere(chamar_investimentos.Buscar_aplicacao(cod_apli), chamar_fundo.Busca_fundo(cod_fun));
+
+
+                                                            }
+                                                            else
+                                                            {
+                                                                Console.WriteLine("Transferência cancelada!");
+                                                            }
+
+
+
 
 
                                                         }
                                                         else
                                                         {
-                                                            Console.WriteLine("Transferência cancelada!");
+                                                            Console.WriteLine("Transferência não permitida, moeda incompatível!");
                                                         }
-
 
 
 
@@ -574,45 +663,44 @@ namespace VaiFundos
                                                     }
                                                     else
                                                     {
-                                                        Console.WriteLine("Transferência não permitida, moeda incompatível!");
+                                                        Console.WriteLine("Fundo não encontrado, verifique o codigo!");
                                                     }
-
-
-
 
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("Fundo não encontrado, verifique o codigo!");
+                                                    Console.WriteLine("Aplicação não encontrada!");
                                                 }
-
                                             }
                                             else
                                             {
-                                                Console.WriteLine("Aplicação não encontrada!");
+                                                Console.WriteLine("Cliente não está associado a esta aplicação.");
+
+
                                             }
+
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Cliente não está associado a esta aplicação.");
-
-
+                                            Console.WriteLine("Cliente não encontrado, verifique CPF!");
                                         }
 
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Cliente não encontrado, verifique CPF!");
-                                    }
 
-                                   
 
-                                    break;
-                                    
-                                    }//término de menu para cliente
+                                        break;
 
+                                }
                             }
-                            break;
+                            else
+                            {
+                                Console.WriteLine("Cliente não pode ser encontrado, verifique cpf!");
+                            }
+
+
+
+                        }//término de menu para cliente
+
+                        break;
                         } //término de menu para adm
                 }
 

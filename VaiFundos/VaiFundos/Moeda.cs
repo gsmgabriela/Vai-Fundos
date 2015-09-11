@@ -9,20 +9,57 @@ namespace VaiFundos
     class Moeda
     {
 
-      //  private int Cont_notas;
-      //  private double Valor_Resgate;
+        protected string nome_moeda;
+        protected char simbolo;
+        
 
-
-      //  public void Resgate_Real()
-      //  {
-
-
-
-
-    //    }
-
+        public Moeda(string nom_moed, char simb)
+        {
+            nome_moeda = nom_moed;
+            simbolo = simb;
+        }
 
         
+        public string getNome_moeda()
+        {
+            return nome_moeda;
+        }
+        public void setNome_moeda(string nom_moed)
+        {
+            nome_moeda = nom_moed;
+        }
+
+
+        public char getSimbolo()
+        {
+            return simbolo;
+        }
+        public void setSimbolo(char simb)
+        {
+            simbolo = simb;
+        }
+
+        
+
+        public virtual double desconto_resgate(Aplicacao aplicacao)
+        {
+            double valor_resgate;
+
+           valor_resgate = aplicacao.getValor_aplicacao();
+
+            Console.WriteLine("Aqui é o pai dele");
+
+            return valor_resgate;
+
+        }
+
+
+
+
+
+
+
+
 
     }
 }
