@@ -540,7 +540,11 @@ namespace VaiFundos
                                                     Real apli_real = new Real("real",'R');//verificar tam da variavel pq não aceita o $
 
                                                   Console.WriteLine("-20% IRRF: "+ apli_real.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic)));
-                                                    //método na classe moeda para verificar tempo de aplicação!!
+                                                    /*if(método na classe moeda para verificar tempo de aplicação!! > 1 ano)
+                                                    se sim chamar método para adicionar 5% ao valor real da aplicação
+                                                    se não fazer resgate da aplicação
+                                                    */
+
                                                 
 
 
@@ -553,7 +557,10 @@ namespace VaiFundos
                                                         Dolar apli_dolar = new Dolar("Dolar",'D');
 
                                                         apli_dolar.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic));
-
+                                                        /*if(método na classe moeda para verificar tempo de aplicação!! > 1 ano)
+                                                    se sim chamar método para adicionar 5% ao valor real da aplicação
+                                                    se não fazer resgate da aplicação
+                                                    */
 
 
                                                     }
@@ -562,9 +569,7 @@ namespace VaiFundos
                                                         Console.WriteLine("Resgate não pode ser feito");
                                                     }
                                                 }
-
-                                                
-
+                                 
 
                                             }
                                             else
@@ -574,26 +579,12 @@ namespace VaiFundos
                                             }
 
                                             
-
-
-
                                         }
                                         else
                                         {
                                             Console.WriteLine("Cliente não associado a essa aplicação, consulte suas aplicações e confira o código!");
                                         }
-
-
-                                            
-
-
-
-
-
-
-
-
-
+                                        
 
 
                                         break;
