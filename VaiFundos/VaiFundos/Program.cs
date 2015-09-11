@@ -20,7 +20,7 @@ namespace VaiFundos
             Lista_aplicacoes chamar_investimentos = new Lista_aplicacoes();
 
             //pra que isso gente !!
-            Classe_Arquivos Arquvo_tste = new Classe_Arquivos();
+           
 
             chamar_fundo.FundosCadastrados();
             chamar_cli.ClientesCadastrados();
