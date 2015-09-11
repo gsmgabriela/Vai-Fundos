@@ -524,8 +524,14 @@ namespace VaiFundos
 
         
         //Método para resgatar aplicação
-        public void resgatar()
+        public void resgatar(Aplicacao aplicacao)
         {
+
+
+
+
+
+
 
 
         }

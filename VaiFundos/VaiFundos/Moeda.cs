@@ -40,7 +40,7 @@ namespace VaiFundos
         }
 
         
-
+        //usar esse método para o dolar
         public virtual double desconto_resgate(Aplicacao aplicacao)
         {
             double valor_resgate;
