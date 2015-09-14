@@ -17,5 +17,19 @@ namespace VaiFundos
 
 
 
-    }
+
+
+        public override double desconto_resgate(Aplicacao aplicacao)
+        {
+            double valor_resgate;
+
+            valor_resgate = aplicacao.getValor_aplicacao() - ((aplicacao.getValor_aplicacao() * 1) / 100);
+            Console.WriteLine("classe Dolar!");
+            return valor_resgate;
+            
+
+        }
+
+
+        }
 }

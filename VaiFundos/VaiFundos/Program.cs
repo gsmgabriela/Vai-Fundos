@@ -393,26 +393,29 @@ namespace VaiFundos
 
                     case 2:
 
-                        int opcao2 = -1;
+                        Console.WriteLine("Digite o CPF do investidor: ");
+                        int cpf_inv = int.Parse(Console.ReadLine());
 
-                        while (opcao2 != 0)
+                        //validar cliente
+                        if (chamar_cli.Busca_cliente(cpf_inv) != null)
                         {
-                            //opções para o cliente
+                            Console.WriteLine("Bem vindo @ - " + chamar_cli.Busca_cliente(cpf_inv).getNome_cliente());
 
-                            Console.WriteLine("Digite o CPF do investidor: ");
-                            int cpf_inv = int.Parse(Console.ReadLine());
 
-                            //validar cliente
-                            if (chamar_cli.Busca_cliente(cpf_inv) != null) {
-                                Console.WriteLine("Bem vindo @ - " + chamar_cli.Busca_cliente(cpf_inv).getNome_cliente());
+                            int opcao2 = -1;
 
-                            Console.WriteLine("Para aplicar em fundo,...........................digite 1");
-                            Console.WriteLine("Consultar aplicações,............................digite 2");
-                            Console.WriteLine("Para fazer resgate,..............................digite 3");
-                            Console.WriteLine("Para transferiri aplicação para outro fundo,.....digite 4");
-                            Console.WriteLine("Para sair,......................digite 0");
+                            while (opcao2 != 0)
+                            {
+                                //opções para o cliente
 
-                            opcao2 = Convert.ToInt32(Console.ReadLine());
+
+                                Console.WriteLine("Para aplicar em fundo,...........................digite 1");
+                                Console.WriteLine("Consultar aplicações,............................digite 2");
+                                Console.WriteLine("Para fazer resgate,..............................digite 3");
+                                Console.WriteLine("Para transferiri aplicação para outro fundo,.....digite 4");
+                                Console.WriteLine("Para sair,......................digite 0");
+
+                                opcao2 = Convert.ToInt32(Console.ReadLine());
 
                                 switch (opcao2)
                                 {
@@ -523,9 +526,9 @@ namespace VaiFundos
 
                                         if (chamar_investimentos.Buscar_aplicacao(cod_aplic).dados_cli.getCpf_cliente() == cpf_inv)//cpf_inv é validado no menu de clientes
                                         {
-                                            Console.WriteLine(chamar_investimentos.Buscar_aplicacao(cod_aplic).dados_cli.getNome_cliente()+" - Resgatar a aplicação abaixo?");
-                                            Console.WriteLine("Código da aplicação: "+chamar_investimentos.Buscar_aplicacao(cod_aplic).getCod_aplicacao()+" Valor: "+ chamar_investimentos.Buscar_aplicacao(cod_aplic).getValor_aplicacao()+" Data: "+ chamar_investimentos.Buscar_aplicacao(cod_aplic).getData_aplicacao());
-                                            Console.WriteLine("Cógdigo do fundo: "+ chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getCodigo_fundo()+" Nome: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getNome_fundo()+"-"+ chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getSigla_fundo());
+                                            Console.WriteLine(chamar_investimentos.Buscar_aplicacao(cod_aplic).dados_cli.getNome_cliente() + " - Resgatar a aplicação abaixo?");
+                                            Console.WriteLine("Código da aplicação: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).getCod_aplicacao() + " Valor: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).getValor_aplicacao() + " Data: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).getData_aplicacao());
+                                            Console.WriteLine("Cógdigo do fundo: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getCodigo_fundo() + " Nome: " + chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getNome_fundo() + "-" + chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getSigla_fundo());
 
                                             Console.WriteLine("Se sim, digite 1");
                                             Console.WriteLine("");
@@ -534,33 +537,67 @@ namespace VaiFundos
                                             if (esc_resg == 1)
                                             {
 
-                                                if (chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getOpcaomoeda() == 1) {
+                                                if (chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getOpcaomoeda() == 1)
+                                                {
 
                                                     //usar classe real
-                                                    Real apli_real = new Real("real",'R');//verificar tam da variavel pq não aceita o $
+                                                    Real apli_real = new Real("real", 'R');//verificar tam da variavel pq não aceita o $
 
-                                                  Console.WriteLine("-20% IRRF: "+ apli_real.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic)));
-                                                    /*if(método na classe moeda para verificar tempo de aplicação!! > 1 ano)
-                                                    se sim chamar método para adicionar 5% ao valor real da aplicação
-                                                    se não fazer resgate da aplicação
-                                                    */
+                                                    Console.WriteLine("-20% IRRF: " + apli_real.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic)));
 
-                                                
+                                                    double acressimo = chamar_investimentos.RetornoAcressimo(cod_aplic);
 
+
+                                                    double total_resgate = acressimo + apli_real.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic));
+
+                                                    Console.WriteLine("Confirma o resgate ?");
+                                                    Console.WriteLine("Se sim, digite 1");
+                                                    Console.WriteLine("Para cancelar , digite 0");
+                                                    int confirma = int.Parse(Console.ReadLine());
+
+                                                    if (confirma == 1)
+                                                    {
+                                                        //meétodo que retorna as notas utilizadas
+                                                        //resgatar--------------excluir aplicação
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Resgate cancelado!");
+                                                    }
 
                                                 }
                                                 else
                                                 {
-                                                    if(chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getOpcaomoeda() == 2)
+                                                    if (chamar_investimentos.Buscar_aplicacao(cod_aplic).fundo.getOpcaomoeda() == 2)
                                                     {
                                                         //usar classe dolar
-                                                        Dolar apli_dolar = new Dolar("Dolar",'D');
+                                                        Dolar apli_dolar = new Dolar("Dolar", 'D');
 
                                                         apli_dolar.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic));
-                                                        /*if(método na classe moeda para verificar tempo de aplicação!! > 1 ano)
-                                                    se sim chamar método para adicionar 5% ao valor real da aplicação
-                                                    se não fazer resgate da aplicação
-                                                    */
+
+                                                        double acressimo = chamar_investimentos.RetornoAcressimo(cod_aplic);
+
+                                                        Console.WriteLine("Valor total do resgate: " + acressimo + apli_dolar.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic)));
+
+                                                        Console.WriteLine("Confirma o resgate ?");
+                                                        Console.WriteLine("Se sim, digite 1");
+                                                        Console.WriteLine("Para cancelar , digite 0");
+                                                        int confirma = int.Parse(Console.ReadLine());
+
+                                                        if (confirma == 1)
+                                                        {
+
+                                                            //meétodo que retorna as notas utilizadas
+                                                            //resgatar--------------excluir aplicação
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("Resgate cancelado!");
+                                                        }
 
 
                                                     }
@@ -569,7 +606,7 @@ namespace VaiFundos
                                                         Console.WriteLine("Resgate não pode ser feito");
                                                     }
                                                 }
-                                 
+
 
                                             }
                                             else
@@ -578,13 +615,13 @@ namespace VaiFundos
 
                                             }
 
-                                            
+
                                         }
                                         else
                                         {
                                             Console.WriteLine("Cliente não associado a essa aplicação, consulte suas aplicações e confira o código!");
                                         }
-                                        
+
 
 
                                         break;
@@ -682,12 +719,13 @@ namespace VaiFundos
 
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("Cliente não pode ser encontrado, verifique cpf!");
-                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Cliente não pode ser encontrado, verifique cpf!");
+                        }
 
-
+                        break;
 
                         }//término de menu para cliente
 
@@ -703,5 +741,5 @@ namespace VaiFundos
 
             }
         }
-    }
+    
 

@@ -174,72 +174,50 @@ namespace VaiFundos
 
 
         //ver pra que serve
-        public void RetornoAplicacaoDados(int cod_apl)
+        public double RetornoAcressimo(int cod_apl)
         {
-            DateTime Data_Hoje;
-            Data_Hoje = DateTime.Now;
-            int Total_Dias;
-            int Qtd_Ano_Dias = 365;
-            int Ano = 365;
-            double Porcentagem = 5;            
-            double Valor_Corrigido_porcentagem;
-            double Valor_Aplicacao;
-            double Valor_Aplicacao_anterior;
-            int QTD_ANO = 1;
-            double PorcentagemAtualizada = 5;
+            DateTime Data_Hoje, data_apli;
+            Data_Hoje = DateTime.Today;
 
-           
+            double Valor_Aplicacao=0;
 
+
+            TimeSpan intervalo = new TimeSpan();
+            TimeSpan dias_ano = new TimeSpan(365);
+            
+            
             foreach (Aplicacao aplicacao in lista_aplicacoes)
             {
-                if (aplicacao.getCod_aplicacao() == cod_apl)
+
+                if(aplicacao.getCod_aplicacao() == cod_apl)
                 {
-                    TimeSpan Data_Dias = Convert.ToDateTime(Data_Hoje) - Convert.ToDateTime(aplicacao.getData_aplicacao());
-
-                    Total_Dias = Data_Dias.Days;
-
-
-                    if (Total_Dias == Qtd_Ano_Dias)
-                    {
-                        Valor_Aplicacao = aplicacao.getValor_aplicacao();
-                        Valor_Aplicacao_anterior = aplicacao.getValor_aplicacao();
-                        Valor_Corrigido_porcentagem = Valor_Aplicacao * Porcentagem;
-                        Valor_Aplicacao = Valor_Aplicacao + Valor_Corrigido_porcentagem;
-
-                        aplicacao.setValor_aplicacao(Valor_Aplicacao);
-                        Console.WriteLine("Valor Anterior da Aplicação: R${0}  Aplicação Atualizada com a Remuneração de 5% 1 ano  Atualizou para: R$" + Valor_Aplicacao_anterior, Valor_Aplicacao);
-                        
-                    } else
-                    {
-                        if (Total_Dias < Qtd_Ano_Dias)
-                        {
-                            Console.WriteLine("Sua aplicação não tem um ano");
-                        }
-
-                        else
-                        {
-                            while (Total_Dias > Qtd_Ano_Dias)
-                            {
-                                QTD_ANO++;
-                                Qtd_Ano_Dias += Ano; 
-                                PorcentagemAtualizada += Porcentagem;
-                             
-                            }
-
-                            Valor_Aplicacao = aplicacao.getValor_aplicacao();
-                            Valor_Aplicacao_anterior = aplicacao.getValor_aplicacao();
-                            Valor_Corrigido_porcentagem = Valor_Aplicacao * PorcentagemAtualizada;
-                            Valor_Aplicacao = Valor_Aplicacao + Valor_Corrigido_porcentagem;
-
-                            aplicacao.setValor_aplicacao(Valor_Aplicacao);
-                            Console.WriteLine("Valor Anterior da Aplicação: R${0} , Aplicação Atualizada de {1} Anos Valor Atual depois da % de {2} Valor Atual R${3}  " + Valor_Aplicacao_anterior + QTD_ANO + Valor_Corrigido_porcentagem + Valor_Aplicacao);
-                            
-
-
-                        }
-                    }
+                    data_apli = aplicacao.getData_aplicacao();
+                    intervalo = Data_Hoje - data_apli;
+                    Valor_Aplicacao = aplicacao.getValor_aplicacao();
+                    
                 }
+
+
             }
+
+            
+            
+            if(intervalo >= dias_ano)
+            {
+
+                double acressimo = (Valor_Aplicacao * 5) / 100;
+                Console.WriteLine("Dias que se passaram: " + intervalo);
+                return acressimo;
+
+            }
+            else
+            {
+                Console.WriteLine("Sem acréssimo. Sua aplicação tem menos de um ano !");
+            }
+
+            return 0;
+            
+          
         }
 
 
