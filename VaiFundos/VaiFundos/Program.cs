@@ -550,6 +550,8 @@ namespace VaiFundos
 
                                                     double total_resgate = acressimo + apli_real.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic));
 
+                                                    Console.WriteLine("Valor total do resgate: "+ total_resgate);
+
                                                     Console.WriteLine("Confirma o resgate ?");
                                                     Console.WriteLine("Se sim, digite 1");
                                                     Console.WriteLine("Para cancelar , digite 0");
@@ -575,7 +577,7 @@ namespace VaiFundos
                                                         //usar classe dolar
                                                         Dolar apli_dolar = new Dolar("Dolar", 'D');
 
-                                                        apli_dolar.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic));
+                                                        Console.WriteLine("-1% IOF: "+ apli_dolar.desconto_resgate(chamar_investimentos.Buscar_aplicacao(cod_aplic)));
 
                                                         double acressimo = chamar_investimentos.RetornoAcressimo(cod_aplic);
 

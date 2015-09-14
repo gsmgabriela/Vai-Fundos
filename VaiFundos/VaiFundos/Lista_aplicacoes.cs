@@ -173,7 +173,7 @@ namespace VaiFundos
         
 
 
-        //ver pra que serve
+        //calcula o acressimo de acordo com o periodo de aplicação
         public double RetornoAcressimo(int cod_apl)
         {
             DateTime Data_Hoje, data_apli;
@@ -183,7 +183,6 @@ namespace VaiFundos
 
 
             TimeSpan intervalo = new TimeSpan();
-            TimeSpan dias_ano = new TimeSpan(365);
             
             
             foreach (Aplicacao aplicacao in lista_aplicacoes)
@@ -202,7 +201,7 @@ namespace VaiFundos
 
             
             
-            if(intervalo >= dias_ano)
+            if(Convert.ToInt32(intervalo.Days) >= 365)
             {
 
                 double acressimo = (Valor_Aplicacao * 5) / 100;
