@@ -19,7 +19,7 @@ namespace VaiFundos
             
             lista_aplicacoes.Add(nova_aplicacao);
             Atualiza_arq_aplicacoes();
-            Console.WriteLine("Aplicação realizada com sucesso !");
+            Console.WriteLine("Aplicação realizada com sucesso !  Cod: "+nova_aplicacao.getCod_aplicacao());
         }
 
 
@@ -130,26 +130,29 @@ namespace VaiFundos
             // Utilizando para buscar pelo CPF
            public void Buscar_aplicacao_Cliente(int b_cpf, int cod_fundo )
         {
-
+            int cont = 0;
             foreach (Aplicacao aplicacao in lista_aplicacoes)
             {
 
                 if (aplicacao.dados_cli.getCpf_cliente() == b_cpf)
                 {
+                    
                     if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
                     {
+                        cont++;
                         Console.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
-                        Console.WriteLine(" Data da aplicação"+aplicacao.getData_aplicacao() +"Valor: "+ aplicacao.getValor_aplicacao());
+                        Console.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
                         Console.WriteLine(".......................................................................................................");
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Você não possui aplicações nesse fundo");
-                }
 
+                    
+                }
             }
-            
+            if (cont == 0)
+            {
+                Console.WriteLine("Você não possui aplicações nesse fundo");
+            }
+
         }
 
 
@@ -258,12 +261,16 @@ namespace VaiFundos
         public void Relatorio_mensal(int cod_fundo)
         {
             List<Aplicacao> escolha_apli = new List<Aplicacao>();
+            int conta_apli = 0;
+            Aplicacao dados = new Aplicacao();
 
             foreach (Aplicacao aplicacao in lista_aplicacoes)
             {
                 if (cod_fundo == aplicacao.fundo.getCodigo_fundo())
                 {
+                    dados = aplicacao;
                     escolha_apli.Add(aplicacao);
+                    conta_apli++;
                 }
             }
             int mes;
@@ -273,92 +280,113 @@ namespace VaiFundos
             Console.WriteLine("Digite o ano:");
             ano = int.Parse(Console.ReadLine());
             int cont = 0;
-            List<Aplicacao> escolha_data = new List<Aplicacao>();
 
-            Console.WriteLine("APLICAÇÕES FEITAS PARA O FUNDO: " + cod_fundo);
-            Console.WriteLine("Para exibir na tela................ digite 1");
-            Console.WriteLine("Para gerar relatório em arquivo.....digite 2");
-            int opcao = int.Parse(Console.ReadLine());
-
-            if (opcao == 1)
+            if (conta_apli == 0)
             {
-                foreach (Aplicacao aplicacao in escolha_apli)
+                Console.WriteLine("Esse fundo ainda não possui aplicações!");
+            }
+            else
+            {
+
+
+
+
+                List<Aplicacao> escolha_data = new List<Aplicacao>();
+
+                Console.WriteLine("APLICAÇÕES FEITAS PARA O FUNDO: " + cod_fundo +"Nome: "+ dados.fundo.getNome_fundo()+"-" +dados.fundo.getSigla_fundo());
+                Console.WriteLine("Para exibir na tela................ digite 1");
+                Console.WriteLine("Para gerar relatório em arquivo.....digite 2");
+                int opcao = int.Parse(Console.ReadLine());
+
+                if (opcao == 1)
                 {
-                    if (aplicacao.getData_aplicacao().Month == mes && aplicacao.getData_aplicacao().Year == ano)
+                    foreach (Aplicacao aplicacao in escolha_apli)
                     {
-                        cont++;
-                        escolha_data.Add(aplicacao);
+                        if (aplicacao.getData_aplicacao().Month == mes && aplicacao.getData_aplicacao().Year == ano)
+                        {
+                            cont++;
+                            escolha_data.Add(aplicacao);
 
 
-                        if (aplicacao.fundo.getOpcaomoeda() == 1)
-                        {
-                            Console.WriteLine("Data" + aplicacao.getData_aplicacao() + "-Cliente: " + aplicacao.dados_cli.getNome_cliente() + " Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Real");
-                        }
-                        else
-                        {
-                            if (aplicacao.fundo.getOpcaomoeda() == 2)
+                            if (aplicacao.fundo.getOpcaomoeda() == 1)
                             {
-                                Console.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getCodigo_cliente() + "-" + aplicacao.dados_cli.getNome_cliente() + " ...Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Dolar");
+                                Console.WriteLine("Data" + aplicacao.getData_aplicacao() + "-Cliente: " + aplicacao.dados_cli.getNome_cliente() + " Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Real");
+                            }
+                            else
+                            {
+                                if (aplicacao.fundo.getOpcaomoeda() == 2)
+                                {
+                                    Console.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getCodigo_cliente() + "-" + aplicacao.dados_cli.getNome_cliente() + " ...Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Dolar");
 
+                                }
                             }
                         }
+                        
                     }
                     if (cont == 0)
                     {
                         Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
                     }
+                    Console.WriteLine(" ");
+
                 }
-            }
 
-            else
-            {
 
-                if (opcao == 2)
+                else
                 {
-                    using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_fundo_e_mês.txt"))
+
+                    if (opcao == 2)
                     {
-                        try
+                        using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_fundo_e_mês.txt"))
                         {
-
-
-                            foreach (Aplicacao aplicacao in escolha_apli)
+                            try
                             {
-                                if (aplicacao.getData_aplicacao().Month == mes && aplicacao.getData_aplicacao().Year == ano)
+                                escritor.WriteLine("APLICAÇÕES FEITAS PARA O FUNDO: " + cod_fundo + " Nome: " + dados.fundo.getNome_fundo() + "-" + dados.fundo.getSigla_fundo());
+
+                                foreach (Aplicacao aplicacao in escolha_apli)
                                 {
-                                    cont++;
-                                    escolha_data.Add(aplicacao);
+                                    if (aplicacao.getData_aplicacao().Month == mes && aplicacao.getData_aplicacao().Year == ano)
+                                    {
+                                        cont++;
+                                        escolha_data.Add(aplicacao);
 
 
-                                    if (aplicacao.fundo.getOpcaomoeda() == 1)
-                                    {
-                                        escritor.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getNome_cliente() + " ...Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Real");
-                                    }
-                                    else
-                                    {
-                                        if (aplicacao.fundo.getOpcaomoeda() == 2)
+                                        if (aplicacao.fundo.getOpcaomoeda() == 1)
                                         {
-                                            escritor.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getCodigo_cliente() + "-" + aplicacao.dados_cli.getNome_cliente() + " Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Dolar");
-
+                                            escritor.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getNome_cliente() + " ...Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Real");
                                         }
+                                        else
+                                        {
+                                            if (aplicacao.fundo.getOpcaomoeda() == 2)
+                                            {
+                                                escritor.WriteLine("Data: " + aplicacao.getData_aplicacao() + "...Cliente: " + aplicacao.dados_cli.getCodigo_cliente() + "-" + aplicacao.dados_cli.getNome_cliente() + " Valor: " + aplicacao.getValor_aplicacao() + " Moeda: Dolar");
+
+                                            }
+                                        }
+                                        escritor.WriteLine("");
                                     }
-                                    escritor.WriteLine("");
+
+                                    
                                 }
-                                
+
                                 if (cont == 0)
                                 {
                                     Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
                                 }
+                                else
+                                {
+                                    Console.WriteLine("Relatório gerado em arquivo!");
+                                }
+                                escritor.Close();
                             }
-                            escritor.Close();
-                            Console.WriteLine("Relatório geredo em arquivo!");
-                        }
-                        catch (IOException)
-                        {
-                            Console.WriteLine("Erro ao Atualizar arquivo!");
+                            catch (IOException)
+                            {
+                                Console.WriteLine("Erro ao Atualizar arquivo!");
+                            }
                         }
                     }
+
                 }
-                
             }
         }
 
@@ -381,19 +409,25 @@ namespace VaiFundos
                     if (aplicacao.fundo.getCodigo_fundo() == cod_fundo)
                     {
                         cont++;
-                        escritor.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                        escritor.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() +" Nome: "+aplicacao.dados_cli.getNome_cliente()+ " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
                         escritor.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
                         escritor.WriteLine(".......................................................................................................");
                     }             
                 }
-                
-                        if (cont == 0)
-                        {
-                            Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
-                        }
+                        
+
+
                     }
-                    escritor.Close();
-                    Console.WriteLine("Relatório geredo em arquivo!");
+                    if (cont == 0)
+                    {
+                        Console.WriteLine("Não há aplicações nesse fundo, no período solicitado");
+                    }
+                    else
+                    {
+                        
+                        escritor.Close();
+                        Console.WriteLine("Relatório gerado em arquivo!");
+                    }
                 }
                 catch (IOException)
                 {
@@ -403,7 +437,7 @@ namespace VaiFundos
         }
 
 
-
+        //gera em arquivo
         public void Gerar_relatorio_por_cliente(int b_cpf)
         {
             int cont = 0;
@@ -421,19 +455,26 @@ namespace VaiFundos
                         {
                             
                                 cont++;
-                                escritor.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
-                                escritor.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
+                                escritor.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Nome:"+aplicacao.dados_cli.getNome_cliente()+ " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                                escritor.WriteLine(" Data da aplicação: " + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
                                 escritor.WriteLine(".......................................................................................................");
                             
                         }
 
-                        if (cont == 0)
-                        {
-                            Console.WriteLine("Não há aplicações feitas por esse cliente");
-                        }
+                        
+
                     }
+                    if (cont == 0)
+                    {
+                        Console.WriteLine("Não há aplicações feitas por esse cliente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Relatório gerado em arquivo!");
+                    }
+
                     escritor.Close();
-                    Console.WriteLine("Relatório geredo em arquivo!");
+                    
                 }
                 catch (IOException)
                 {
@@ -442,7 +483,7 @@ namespace VaiFundos
             }
         }
 
-
+        // Exibe na tela
         public void Exibir_aplicacoes_por_cliente(int b_cpf)
         {
             int cont = 0;
@@ -457,20 +498,23 @@ namespace VaiFundos
                         {
 
                             cont++;
-                            Console.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
+                            Console.WriteLine("Codigo do cliente: " + aplicacao.dados_cli.getCodigo_cliente() + " Nome: "+aplicacao.dados_cli.getNome_cliente()+" Código do fundo: " + aplicacao.fundo.getCodigo_fundo() + " Nome do fundo: " + aplicacao.fundo.getNome_fundo() + "- " + aplicacao.fundo.getSigla_fundo());
                             Console.WriteLine(" Data da aplicação" + aplicacao.getData_aplicacao() + "Valor: " + aplicacao.getValor_aplicacao());
                             Console.WriteLine(".......................................................................................................");
 
                         }
 
-                        if (cont == 0)
-                        {
-                            Console.WriteLine("Não há aplicações feitas por esse cliente");
-                        }
+                        
                     }
-                    
-                }
-        
+            if (cont == 0)
+            {
+                Console.WriteLine("Não há aplicações feitas por esse cliente");
+            }
+
+        }
+
+
+        // muda dados do fundo em uma aplicação
         public void transfere(Aplicacao aplicacao, Fundo_de_investimento fundo_novo)
         {
             int cont = 0;

@@ -145,7 +145,9 @@ namespace VaiFundos
 
                                    if(chamar_cli.Busca_cliente(cpf_cli) !=null){
 
-
+                                        Console.WriteLine("");
+                                        Console.WriteLine("Cliente: " + chamar_cli.Busca_cliente(cpf_cli).getCodigo_cliente()+"- "+chamar_cli.Busca_cliente(cpf_cli).getNome_cliente());
+                                        Console.WriteLine(" ");
                                         Console.WriteLine("para escolher fundo, digite.....1");
                                         Console.WriteLine("Para imprimir todos,............2");
                                         int escolha = int.Parse(Console.ReadLine());
@@ -239,7 +241,7 @@ namespace VaiFundos
                                     string nome;
 
                                     Console.WriteLine("Digite cpf: ");
-                                    cpf = int.Parse(Console.ReadLine());
+                                    cpf = Convert.ToInt32(Console.ReadLine());
                                     Console.WriteLine("Digite nome: ");
                                     nome = Console.ReadLine();
 
@@ -465,24 +467,36 @@ namespace VaiFundos
                                                         DateTime dt_apl;
                                                         Console.WriteLine("Digite o valor que deseja aplicar: ");
                                                         valor_apl = double.Parse(Console.ReadLine());
-                                                        dt_apl = DateTime.Today;
-                                                        Console.WriteLine("Data da aplicação:" + dt_apl);
 
-                                                        chamar_investimentos.containvestimentos();
+                                                        Console.WriteLine("Confirmar aplicação: ");
+                                                        Console.WriteLine("Se sim, digite 1.........Se não digite 0");
+                                                        int conf = int.Parse(Console.ReadLine());
 
-                                                        Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
+                                                        if (conf == 1)
+                                                        {
+                                                            dt_apl = DateTime.Today;
+                                                            Console.WriteLine("Data da aplicação:" + dt_apl);
 
-                                                        //atribuindo os dados do cliente a aplicação
-                                                        nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
+                                                            chamar_investimentos.containvestimentos();
+
+                                                            Aplicacao nova_aplicacao = new Aplicacao(valor_apl, dt_apl, chamar_investimentos.containvestimentos());
+
+                                                            //atribuindo os dados do cliente a aplicação
+                                                            nova_aplicacao.dados_cli = new Cliente(chamar_cli.Busca_cliente(b_cpf).getCodigo_cliente(), b_cpf, chamar_cli.Busca_cliente(b_cpf).getNome_cliente());
 
 
 
 
-                                                        //atribuindo os dados do fundo a aplicação
-                                                        nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo, chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(), chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
+                                                            //atribuindo os dados do fundo a aplicação
+                                                            nova_aplicacao.fundo = new Fundo_de_investimento(cod_fundo, chamar_fundo.Busca_fundo(cod_fundo).getNome_fundo(), chamar_fundo.Busca_fundo(cod_fundo).getSigla_fundo(), opcaomoeda);
 
-                                                        chamar_investimentos.Aplicar(nova_aplicacao);
+                                                            chamar_investimentos.Aplicar(nova_aplicacao);
 
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("Aplicação cancelada!");
+                                                        }
 
                                                     }
                                                     else
