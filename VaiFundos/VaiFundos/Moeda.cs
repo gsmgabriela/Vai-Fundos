@@ -53,6 +53,14 @@ namespace VaiFundos
 
         }
 
+        // Para os filhos usar o do pai
+        public virtual void Contar_Notas(Aplicacao aplicacao)
+        {
+           
+
+
+        }
+
 
 
 
