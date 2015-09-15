@@ -545,16 +545,25 @@ namespace VaiFundos
 
         
         //Método para resgatar aplicação
-        public void resgatar(Aplicacao aplicacao)
+        public Aplicacao resgatar(Aplicacao aplicacao)
         {
 
+            foreach (Aplicacao apli in lista_aplicacoes)
+            {
+                if(apli.getCod_aplicacao() == aplicacao.getCod_aplicacao())
+                {
+                    lista_aplicacoes.Remove(apli);
+                    Atualiza_arq_aplicacoes();
+                    Console.WriteLine("Aplicação resgatada");
+
+                    return apli;
+
+                }
 
 
-
-
-
-
-
+            }
+            return null;
+            
         }
 
 
