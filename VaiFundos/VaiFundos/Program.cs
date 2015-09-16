@@ -26,6 +26,8 @@ namespace VaiFundos
             chamar_cli.ClientesCadastrados();
             chamar_investimentos.Aplicações_arq();
 
+          
+            
 
 
 
@@ -580,8 +582,14 @@ namespace VaiFundos
 
                                                         if (confirma == 1)
                                                         {
+                                                            // Carrega as notas de Reais na lista
+                                                            apli_real.CarregarNotas();
                                                             //meétodo que retorna as notas utilizadas
+
                                                             apli_real.Contar_Notas(total_resgate);
+
+
+
 
 
                                                             //resgatar--------------excluir aplicação

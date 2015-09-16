@@ -58,6 +58,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Arq_Aplicacoes.txt" />
+    <Content Include="Arq_Clientes.txt" />
+    <Content Include="Fundos_Cadastrados.txt" />
+    <Content Include="Notas_Real.txt" />
+    <Content Include="Relatorio_Aplicacaoes_por_fundo_e_mes.txt" />
+    <Content Include="Relatorio_Aplicacoes_por_cliente_e_fundo.txt" />
+    <Content Include="Relatório_Aplicacoes_por_cliente_e_fundo.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -16,7 +16,7 @@ namespace VaiFundos
         //carrega clientes do arquivo para a lista de clientes.
         public void ClientesCadastrados()
         {
-            using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            using (StreamReader reader = new StreamReader ("../../Arq_Cliente.txt"))
             {
 
                 try
@@ -84,7 +84,7 @@ namespace VaiFundos
         public void Atualiza_arq_clientes()
         {
 
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Cliente.txt"))
+            using (StreamWriter escritor = new StreamWriter("../../Arq_Cliente.txt"))
             {
                 try
                 {

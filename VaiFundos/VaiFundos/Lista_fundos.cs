@@ -16,7 +16,7 @@ namespace VaiFundos
         // Metodo carrega os dados dos fundos cadastrados pelo arquivo
         public void FundosCadastrados()
         {
-            using (StreamReader reader = new StreamReader(@"C:\Users\BRUNO\Source\Repos\Vai-Fundos\VaiFundos\VaiFundos\Fundos_Cadastrados.txt"))
+            using (StreamReader reader = new StreamReader("../../Fundos_Cadastrados.txt"))
             {
 
                 try
@@ -59,7 +59,7 @@ namespace VaiFundos
         public void Atualiza_arq_fundos()
         {
 
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Fundos_Cadastrados.txt"))
+            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\R.ROMUALDO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Fundos_Cadastrados.txt"))
             {
                 try
                 {

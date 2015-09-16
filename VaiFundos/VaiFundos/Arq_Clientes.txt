@@ -1,0 +1,11 @@
+﻿2;112;rodrigo
+3;122;outrapessoa
+4;333;GABI
+5;908;gab
+7;786;teste
+8;453;teste 5
+1;970;teste 6
+9;444;teste 7
+6;900;sakura
+10;8765;teste 8
+11;123456;gabriela

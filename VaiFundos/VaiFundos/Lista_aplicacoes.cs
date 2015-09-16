@@ -26,7 +26,7 @@ namespace VaiFundos
         //Metodo para ler o arquivo de aplicações
         public void Aplicações_arq()
         {
-            using (StreamReader reader = new StreamReader(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Aplicacões.txt"))
+            using (StreamReader reader = new StreamReader("../../Arq_Aplicacoes"))
             {
 
                 try
@@ -84,7 +84,7 @@ namespace VaiFundos
         public void Atualiza_arq_aplicacoes()
         {
 
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Arq_Aplicacões.txt"))
+            using (StreamWriter escritor = new StreamWriter("../../Arq_Aplicacões.txt"))
             {
                 try
                 {
@@ -337,7 +337,7 @@ namespace VaiFundos
 
                     if (opcao == 2)
                     {
-                        using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_fundo_e_mês.txt"))
+                        using (StreamWriter escritor = new StreamWriter("../../Relatorio_Aplicacaoes_por_fundo_e_mes.txt"))
                         {
                             try
                             {
@@ -395,7 +395,7 @@ namespace VaiFundos
         {
             int cont=0;
 
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_cliemte_e_fundo.txt"))
+            using (StreamWriter escritor = new StreamWriter("../../Relatorio_Aplicacoes_por_cliente_e_fundo.txt"))
             {
                 try
                 {
@@ -442,7 +442,7 @@ namespace VaiFundos
         {
             int cont = 0;
 
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\BRUNO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Relatório-Aplicações_por_cliemte_e_fundo.txt"))
+            using (StreamWriter escritor = new StreamWriter("../../Relatório_Aplicacoes_por_cliente_e_fundo.txt"))
             {
                 try
                 {

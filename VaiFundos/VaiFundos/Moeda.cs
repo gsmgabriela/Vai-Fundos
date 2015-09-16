@@ -11,7 +11,20 @@ namespace VaiFundos
 
         protected string nome_moeda;
         protected char simbolo;
-        
+        protected List<Moeda> notas = new List<Moeda>(); 
+        protected int Qtd_Nota;
+        protected int nota;
+
+        // Metodo de carregar notas
+        public virtual void Contar_Notas(double Valor_Resgate)
+        {
+          
+        }
+
+        public virtual void CarregarNotas()
+        {
+        }
+
 
         public Moeda(string nom_moed, char simb)
         {
