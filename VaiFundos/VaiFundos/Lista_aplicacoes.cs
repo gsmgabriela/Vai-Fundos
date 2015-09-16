@@ -26,7 +26,7 @@ namespace VaiFundos
         //Metodo para ler o arquivo de aplicações
         public void Aplicações_arq()
         {
-            using (StreamReader reader = new StreamReader("../../Arq_Aplicacoes"))
+            using (StreamReader reader = new StreamReader(@"../../Arq_Aplicacoes.txt"))
             {
 
                 try
@@ -84,7 +84,7 @@ namespace VaiFundos
         public void Atualiza_arq_aplicacoes()
         {
 
-            using (StreamWriter escritor = new StreamWriter("../../Arq_Aplicacões.txt"))
+            using (StreamWriter escritor = new StreamWriter("../../Arq_Aplicacoes.txt"))
             {
                 try
                 {

@@ -59,7 +59,7 @@ namespace VaiFundos
         public void Atualiza_arq_fundos()
         {
 
-            using (StreamWriter escritor = new StreamWriter(@"C:\\Users\\R.ROMUALDO\\Source\\Repos\\Vai-Fundos\\VaiFundos\\VaiFundos\\Fundos_Cadastrados.txt"))
+            using (StreamWriter escritor = new StreamWriter("../../Fundos_Cadastrados.txt"))
             {
                 try
                 {
