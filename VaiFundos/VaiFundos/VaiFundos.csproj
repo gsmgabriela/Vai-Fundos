@@ -50,10 +50,12 @@
     <Compile Include="Lista_aplicacoes.cs" />
     <Compile Include="Lista_clientes.cs" />
     <Compile Include="Lista_fundos.cs" />
+    <Compile Include="Lista_user.cs" />
     <Compile Include="Moeda.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Real.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -61,6 +63,7 @@
   <ItemGroup>
     <Content Include="Arq_Aplicacoes.txt" />
     <Content Include="Arq_Clientes.txt" />
+    <Content Include="Arq_Usuarios.txt" />
     <Content Include="Fundos_Cadastrados.txt" />
     <Content Include="Notas_Real.txt" />
     <Content Include="Relatorio_Aplicacaoes_por_fundo_e_mes.txt" />
